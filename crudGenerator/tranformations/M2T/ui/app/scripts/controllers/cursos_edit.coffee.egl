@@ -1,0 +1,44 @@
+'use strict'
+
+###*
+ # @ngdoc function
+ # @name uiApp.controller:CursosEditCtrl
+ # @description
+ # # CursosEditCtrl
+ # Controller of the uiApp
+###
+angular.module 'uiApp'
+  .controller 'CursosEditCtrl', ($routeParams, Curso, Estudiante,
+    PeriodoAcademico, $window)->
+    scope=@
+    @periodo_academicos=PeriodoAcademico.query()
+    @object = Curso.get({id: $routeParams.id},->
+      scope.object.estudiantes=Estudiante.query({'q[id_in][]': scope.object.estudiante_ids})
+      scope.object.periodo_academico_id = ''+scope.object.periodo_academico_id
+    )
+    @save = (form) ->
+      new_object = new Curso(@object);
+      new_object.$update().then(->
+        scope.alert={type: "info", msg: "Guardado"}
+        $window.location.href = '#/cursos';
+      , ->
+        scope.alert={type: 'danger', msg: "No guardado"}
+      )
+    @get_estudiantes=(query)->
+      Estudiante.query({'q[nombre_or_apellido_cont]': query}).
+      $promise.then((response) ->
+        return response;
+      )
+    @add_estudiante=($item, $model, $label)->
+      if _.isUndefined(scope.object.estudiantes)
+        scope.object.estudiantes = []
+      unless _.contains(scope.object.estudiante_ids,$item.id)
+        scope.object.estudiantes.push($item)
+        scope.object.estudiante_ids=_.map(scope.object.estudiantes, (e)->
+          e.id)
+      scope.object.selected_estudiante = null
+    @delete_estudiante=(item)->
+      scope.object.estudiantes=_.without(scope.object.estudiantes, item)
+      scope.object.estudiante_ids=_.map(scope.object.estudiantes, (e)->
+          e.id)
+    return

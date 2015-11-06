@@ -1,0 +1,23 @@
+'use strict'
+
+###*
+ # @ngdoc function
+ # @name uiApp.controller:PeriodoAcademicosEditCtrl
+ # @description
+ # # PeriodoAcademicosEditCtrl
+ # Controller of the uiApp
+###
+angular.module 'uiApp'
+  .controller 'PeriodoAcademicosEditCtrl', ($routeParams, PeriodoAcademico,
+    $window,_)->
+    scope=@
+    @object = PeriodoAcademico.get({id: $routeParams.id})
+    @save = (form) ->
+      new_object = new PeriodoAcademico(@object);
+      new_object.$update().then(->
+        scope.alert={type: "info", msg: "Guardado"}
+        $window.location.href = '#/periodos_academicos';
+      , ->
+        scope.alert={type: 'danger', msg: "No guardado"}
+      )
+    return

@@ -1,0 +1,11 @@
+class CreatePeriodoAcademicos < ActiveRecord::Migration
+  def change
+    create_table :periodo_academicos do |t|
+      t.string :nombre
+      t.date :fecha_inicio
+      t.date :fecha_fin
+
+      t.timestamps null: false
+    end
+  end
+end

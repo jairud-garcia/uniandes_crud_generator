@@ -1,0 +1,47 @@
+class Admin::PeriodoAcademicosController < ApplicationController
+  def index
+    max_per_page = 250
+    search = PeriodoAcademico.where(params.fetch(:filters,{}).permit())
+    paginate search.count, max_per_page do |limit, offset|
+      render json: search.limit(limit).offset(offset).
+        to_json()
+    end
+  end
+
+  def show
+    @object = PeriodoAcademico.find(params[:id])
+    render json: @object
+  end
+
+  def create
+    @object = PeriodoAcademico.new(get_params)
+    if @object.save
+      render json: @object
+    else
+      render json: @object.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    @object = PeriodoAcademico.find(params[:id])
+    if @object.update_attributes(get_params)
+      render json: @object
+    else
+      render json: @object.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @object = PeriodoAcademico.find(params[:id])
+    if @object.destroy
+      render json: @object
+    else
+      render json: @object.errors, status: :unprocessable_entity
+    end
+  end
+
+  protected
+  def get_params
+    params.permit(:nombre, :fecha_inicio, :fecha_fin)
+  end
+end

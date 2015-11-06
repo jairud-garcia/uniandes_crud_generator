@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: periodo_academicos
+#
+#  id           :integer          not null, primary key
+#  nombre       :string
+#  fecha_inicio :date
+#  fecha_fin    :date
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
+class PeriodoAcademico < ActiveRecord::Base
+  default_scope { order("#{table_name}.id") }
+  has_many :cursos
+  validates :nombre, presence: true, uniqueness: true
+  validates :fecha_inicio, presence: true
+  validates :fecha_fin, presence: true
+
+end

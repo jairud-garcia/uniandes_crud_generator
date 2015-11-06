@@ -1,0 +1,19 @@
+# == Schema Information
+#
+# Table name: estudiantes
+#
+#  id               :integer          not null, primary key
+#  nombre           :string
+#  apellido         :string
+#  fecha_nacimiento :date
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
+require 'test_helper'
+
+class EstudianteTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+end

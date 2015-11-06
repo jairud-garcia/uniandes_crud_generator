@@ -1,0 +1,26 @@
+'use strict'
+
+###*
+ # @ngdoc function
+ # @name uiApp.controller:EstudiantesNewCtrl
+ # @description
+ # # EstudiantesNewCtrl
+ # Controller of the uiApp
+###
+angular.module 'uiApp'
+  .controller 'EstudiantesNewCtrl', (Estudiante, Curso,$window) ->
+    scope=@
+    @cursos=Curso.query()
+    #for search with filters
+    #@cursos=Curso.query({"q[nombre_cont]": 'a'})
+
+    @save = (form) ->
+      new_object = new Estudiante(@object);
+      new_object.$save().then(->
+        scope.alert={type: "info", msg: "Guardado"}
+        $window.location.href = '#/estudiantes';
+      , ->
+        scope.alert={type: 'danger', msg: "No guardado"}
+      )
+
+    return

@@ -1,0 +1,67 @@
+'use strict'
+
+###*
+ # @ngdoc overview
+ # @name uiApp
+ # @description
+ # # uiApp
+ #
+ # Main module of the application.
+###
+angular
+  .module 'uiApp', [
+    'ngAnimate',
+    'ngCookies',
+    'ngResource',
+    'ngRoute',
+    'ngSanitize',
+    'ui.bootstrap',
+    'bgf.paginateAnything',
+    'config',
+    'underscore'
+  ]
+  .config ($routeProvider) ->
+    $routeProvider
+      .when '/',
+        templateUrl: 'views/main.html'
+        controller: 'MainCtrl'
+        controllerAs: 'controller'
+      .when '/estudiantes',
+        templateUrl: 'views/estudiantes.html'
+        controller: 'EstudiantesCtrl'
+        controllerAs: 'controller'
+      .when '/estudiantes/new',
+        templateUrl: 'views/estudiantes_new.html'
+        controller: 'EstudiantesNewCtrl'
+        controllerAs: 'controller'
+      .when '/estudiantes/:id/edit',
+        templateUrl: 'views/estudiantes_edit.html'
+        controller: 'EstudiantesEditCtrl'
+        controllerAs: 'controller'
+      .when '/cursos',
+        templateUrl: 'views/cursos.html'
+        controller: 'CursosCtrl'
+        controllerAs: 'controller'
+      .when '/cursos/new',
+        templateUrl: 'views/cursos_new.html'
+        controller: 'CursosNewCtrl'
+        controllerAs: 'controller'
+      .when '/cursos/:id/edit',
+        templateUrl: 'views/cursos_edit.html'
+        controller: 'CursosEditCtrl'
+        controllerAs: 'controller'
+      .when '/periodo_academicos/:id/edit',
+        templateUrl: 'views/periodo_academicos_edit.html'
+        controller: 'PeriodoAcademicosEditCtrl'
+        controllerAs: 'controller'
+      .when '/periodo_academicos/new',
+        templateUrl: 'views/periodo_academicos_new.html'
+        controller: 'PeriodoAcademicosNewCtrl'
+        controllerAs: 'controller'
+      .when '/periodo_academicos',
+        templateUrl: 'views/periodo_academicos.html'
+        controller: 'PeriodoAcademicosCtrl'
+        controllerAs: 'controller'
+      .otherwise
+        redirectTo: '/'
+

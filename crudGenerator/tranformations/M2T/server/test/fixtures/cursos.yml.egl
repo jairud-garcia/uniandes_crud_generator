@@ -1,0 +1,24 @@
+# == Schema Information
+#
+# Table name: cursos
+#
+#  id                   :integer          not null, primary key
+#  nombre               :string
+#  codigo               :string
+#  descripcion          :text
+#  periodo_academico_id :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyString
+  codigo: MyString
+  descripcion: MyText
+
+two:
+  nombre: MyString
+  codigo: MyString
+  descripcion: MyText

@@ -1,0 +1,22 @@
+'use strict'
+
+###*
+ # @ngdoc function
+ # @name uiApp.controller:PeriodoAcademicosNewCtrl
+ # @description
+ # # PeriodoAcademicosNewCtrl
+ # Controller of the uiApp
+###
+angular.module 'uiApp'
+  .controller 'PeriodoAcademicosNewCtrl', (PeriodoAcademico,$window) ->
+    scope=@
+    @save = (form) ->
+      new_object = new PeriodoAcademico(@object);
+      new_object.$save().then(->
+        scope.alert={type: "info", msg: "Guardado"}
+        $window.location.href = '#/periodo_academicos';
+      , ->
+        scope.alert={type: 'danger', msg: "No guardado"}
+      )
+    return
+

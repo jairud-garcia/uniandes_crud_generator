@@ -1,0 +1,19 @@
+<uib-alert ng-if="controller.alert" type="{{controller.alert.type}}" >{{controller.alert.msg}}
+</uib-alert>
+
+<form name='new' ng-submit='controller.save(new)'>
+  <div class="form-group">
+    <label for="nombre">* Nombre</label>
+    <input type="nombre" class="form-control" ng-model='controller.object.nombre' required>
+  </div>
+  <div class="form-group">
+    <label for="fecha_inicio">Fecha inicio</label>
+    <uib-datepicker min-date="minDate" show-weeks="true" class="well well-sm" ng-model='controller.object.fecha_inicio'></uib-datepicker>
+  </div>
+  <div class="form-group">
+    <label for="fecha_fin">Fecha fin</label>
+    <uib-datepicker min-date="minDate" show-weeks="true" class="well well-sm" ng-model='controller.object.fecha_fin'></uib-datepicker>
+  </div>
+  <button type="submit" class="btn btn-success">Guardar</button>
+  <a href='#/estudiantes' class='btn btn-danger'> Cancelar </a>
+</form>

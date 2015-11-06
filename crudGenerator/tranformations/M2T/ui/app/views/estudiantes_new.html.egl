@@ -1,0 +1,27 @@
+<uib-alert ng-if="controller.alert" type="{{controller.alert.type}}" >{{controller.alert.msg}}
+</uib-alert>
+
+<form name='new' ng-submit='controller.save(new)'>
+  <div class="form-group">
+    <label for="nombre">* Nombre</label>
+    <input type="nombre" class="form-control" ng-model='controller.object.nombre' required>
+  </div>
+  <div class="form-group">
+    <label for="apellido">* Apellido</label>
+    <input type="apellido" class="form-control" ng-model='controller.object.apellido' required>
+  </div>
+  <div class="form-group">
+    <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+    <uib-datepicker min-date="minDate" show-weeks="true" class="well well-sm" ng-model='controller.object.fecha_nacimiento'></uib-datepicker>
+  </div>
+  <div class="form-group">
+    <label for="curso_ids">Cursos</label>
+    <select size="5" multiple ng-multiple="true" ng-model="controller.object.curso_ids">
+      <option ng-repeat='curso in controller.cursos' ng-selected="controller.object.curso_ids.indexOf(parseInt(curso.id)) != -1" value="{{curso.id}}">
+        {{curso.nombre}}
+      </option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-success">Guardar</button>
+  <a href='#/estudiantes' class='btn btn-danger'> Cancelar </a>
+</form>

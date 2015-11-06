@@ -1,0 +1,42 @@
+<uib-alert ng-if="controller.alert" type="{{controller.alert.type}}" >{{controller.alert.msg}}
+</uib-alert>
+
+<form name='new' ng-submit='controller.save(new)'>
+  <div class="form-group">
+    <label for="nombre">* Nombre</label>
+    <input type="nombre" class="form-control" ng-model='controller.object.nombre' required>
+  </div>
+  <div class="form-group">
+    <label for="codigo">* Codigo</label>
+    <input type="codigo" class="form-control" ng-model='controller.object.codigo' required>
+  </div>
+  <div class="form-group">
+    <label for="descripcion">Descripcion</label>
+    <textarea ng-model='controller.object.descripcion'></textarea>
+  </div>
+  <div class="form-group">
+    <label for="curso_ids">Periodo Academico</label>
+    <select ng-model="controller.object.periodo_academico_id" required>
+      <option ng-repeat='periodo_academico in controller.periodo_academicos' value="{{periodo_academico.id}}">
+        {{periodo_academico.nombre}}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="descripcion">Estudiantes</label>
+    <input type="text" ng-model="controller.object.selected_estudiante"
+    uib-typeahead="estudiante as (estudiante.apellido + ' ' +estudiante.nombre ) for estudiante in controller.get_estudiantes($viewValue)"
+    typeahead-min-length='3' typeahead-wait-ms='200'
+    typeahead-on-select='controller.add_estudiante($item, $model, $label)' class="form-control">
+    <ol>
+      <li ng-repeat="item in controller.object.estudiantes">
+        <a ng-click="controller.delete_estudiante(item)" class="btn btn-xs btn-danger">
+        X
+        </a>
+          {{item.apellido + ' ' +item.nombre }}
+      </li>
+    </ol>
+  </div>
+  <button type="submit" class="btn btn-success">Guardar</button>
+  <a href='#/cursos' class='btn btn-danger'> Cancelar </a>
+</form>
