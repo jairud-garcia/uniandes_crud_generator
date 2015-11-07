@@ -42,7 +42,7 @@ class Admin::[%= entity.name %]sController < ApplicationController
 
   protected
   def get_params
-    params.permit(:nombre, :codigo, :descripcion, :periodo_academico_id,
-      :estudiante_ids=>[])
+    [% var attributes= entity.attributes.collect(a|':'+a.name);%]
+    params.permit([%= attributes.toString().replace('\\[','').replace('\\]','')%])
   end
 end
