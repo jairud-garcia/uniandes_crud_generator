@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>[%=angularModel!Application.allInstances().get(0).name%]</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -81,19 +81,31 @@
 
      <!-- build:js({.tmp,app}) scripts/scripts.js -->
      <script src="scripts/app.js"></script>
-     <script src="scripts/services/estudiante.js"></script>
-     <script src="scripts/services/curso.js"></script>
-     <script src="scripts/services/periodoacademico.js"></script>
+     [%
+     	
+     	for (service in angularModel!Application.getAllInstances().get(0).services){
+     		var filename = service.name.toLowerCase();
+     		%]
+     <script src="scripts/services/[%=filename%].js"></script>
+     		[%
+     	}
+     %]
      <script src="scripts/controllers/main.js"></script>
-     <script src="scripts/controllers/estudiantes.js"></script>
-     <script src="scripts/controllers/estudiantes_new.js"></script>
-     <script src="scripts/controllers/estudiantes_edit.js"></script>
-     <script src="scripts/controllers/cursos.js"></script>
-     <script src="scripts/controllers/cursos_new.js"></script>
-     <script src="scripts/controllers/cursos_edit.js"></script>
-     <script src="scripts/controllers/periodo_academicos_edit.js"></script>
-     <script src="scripts/controllers/periodo_academicos_new.js"></script>
-     <script src="scripts/controllers/periodo_academicos.js"></script>
+     
+     [%
+     	for(crud in angularModel!Application.getAllInstances().get(0).cruds){
+     		if(crud.allowCreate){
+     			out.println('<script src="scripts/controllers/'+crud.service.name.toLowerCase()+'s_new.js"></script>');
+     		}
+     		if(crud.allowRead or crud.allowDelete){
+     			out.println('<script src="scripts/controllers/'+crud.service.name.toLowerCase()+'s.js"></script>');
+     		}
+     		if(crud.allowUpdate){
+     			out.println('<script src="scripts/controllers/'+crud.service.name.toLowerCase()+'s_edit.js"></script>');
+     		}
+     	}
+     %]
+     
      <script src="/scripts/config.js" />
 
      <!-- endbuild -->

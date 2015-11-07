@@ -1,7 +1,10 @@
+Config-files
 [% TemplateFactory.load('./ui/.travis.yml.egl').generate('../../build/ui/.travis.yml'); %]
 [% TemplateFactory.load('./ui/package.json.egl').generate('../../build/ui/package.json'); %]
 [% TemplateFactory.load('./ui/bower.json.egl').generate('../../build/ui/bower.json'); %]
 [% TemplateFactory.load('./ui/.yo-rc.json.egl').generate('../../build/ui/.yo-rc.json'); %]
+
+Test-files
 [% TemplateFactory.load('./ui/test/.jshintrc.egl').generate('../../build/ui/test/.jshintrc'); %]
 [% TemplateFactory.load('./ui/test/karma.conf.coffee.egl').generate('../../build/ui/test/karma.conf.coffee'); %]
 [% TemplateFactory.load('./ui/test/spec/controllers/main.coffee.egl').generate('../../build/ui/test/spec/controllers/main.coffee'); %]
@@ -18,6 +21,8 @@
 [% TemplateFactory.load('./ui/test/spec/services/periodoacademico.coffee.egl').generate('../../build/ui/test/spec/services/periodoacademico.coffee'); %]
 [% TemplateFactory.load('./ui/test/spec/services/estudiante.coffee.egl').generate('../../build/ui/test/spec/services/estudiante.coffee'); %]
 [% TemplateFactory.load('./ui/test/spec/services/curso.coffee.egl').generate('../../build/ui/test/spec/services/curso.coffee'); %]
+
+Static-files
 [% TemplateFactory.load('./ui/.editorconfig.egl').generate('../../build/ui/.editorconfig'); %]
 [% TemplateFactory.load('./ui/README.md.egl').generate('../../build/ui/README.md'); %]
 [% TemplateFactory.load('./ui/.jshintrc.egl').generate('../../build/ui/.jshintrc'); %]
@@ -26,6 +31,8 @@
 [% TemplateFactory.load('./ui/app/images/yeoman.png.egl').generate('../../build/ui/app/images/yeoman.png'); %]
 [% TemplateFactory.load('./ui/app/styles/main.scss.egl').generate('../../build/ui/app/styles/main.scss'); %]
 [% TemplateFactory.load('./ui/app/.buildignore.egl').generate('../../build/ui/app/.buildignore'); %]
+
+Controllers-files
 [% TemplateFactory.load('./ui/app/scripts/controllers/main.coffee.egl').generate('../../build/ui/app/scripts/controllers/main.coffee'); %]
 [% TemplateFactory.load('./ui/app/scripts/controllers/periodo_academicos_new.coffee.egl').generate('../../build/ui/app/scripts/controllers/periodo_academicos_new.coffee'); %]
 [% TemplateFactory.load('./ui/app/scripts/controllers/periodo_academicos.coffee.egl').generate('../../build/ui/app/scripts/controllers/periodo_academicos.coffee'); %]
@@ -36,11 +43,19 @@
 [% TemplateFactory.load('./ui/app/scripts/controllers/estudiantes.coffee.egl').generate('../../build/ui/app/scripts/controllers/estudiantes.coffee'); %]
 [% TemplateFactory.load('./ui/app/scripts/controllers/estudiantes_edit.coffee.egl').generate('../../build/ui/app/scripts/controllers/estudiantes_edit.coffee'); %]
 [% TemplateFactory.load('./ui/app/scripts/controllers/cursos.coffee.egl').generate('../../build/ui/app/scripts/controllers/cursos.coffee'); %]
+
+AppJs-file
 [% TemplateFactory.load('./ui/app/scripts/app.coffee.egl').generate('../../build/ui/app/scripts/app.coffee'); %]
+
+Services-files
 [% TemplateFactory.load('./ui/app/scripts/services/periodoacademico.coffee.egl').generate('../../build/ui/app/scripts/services/periodoacademico.coffee'); %]
 [% TemplateFactory.load('./ui/app/scripts/services/estudiante.coffee.egl').generate('../../build/ui/app/scripts/services/estudiante.coffee'); %]
 [% TemplateFactory.load('./ui/app/scripts/services/curso.coffee.egl').generate('../../build/ui/app/scripts/services/curso.coffee'); %]
+
+ConfigJs-file
 [% TemplateFactory.load('./ui/app/scripts/config.js.egl').generate('../../build/ui/app/scripts/config.js'); %]
+
+Views-files
 [% TemplateFactory.load('./ui/app/views/cursos.html.egl').generate('../../build/ui/app/views/cursos.html'); %]
 [% TemplateFactory.load('./ui/app/views/estudiantes_new.html.egl').generate('../../build/ui/app/views/estudiantes_new.html'); %]
 [% TemplateFactory.load('./ui/app/views/periodo_academicos.html.egl').generate('../../build/ui/app/views/periodo_academicos.html'); %]
@@ -51,9 +66,13 @@
 [% TemplateFactory.load('./ui/app/views/cursos_new.html.egl').generate('../../build/ui/app/views/cursos_new.html'); %]
 [% TemplateFactory.load('./ui/app/views/periodo_academicos_new.html.egl').generate('../../build/ui/app/views/periodo_academicos_new.html'); %]
 [% TemplateFactory.load('./ui/app/views/main.html.egl').generate('../../build/ui/app/views/main.html'); %]
+
+BasicIndex-files
 [% TemplateFactory.load('./ui/app/robots.txt.egl').generate('../../build/ui/app/robots.txt'); %]
 [% TemplateFactory.load('./ui/app/index.html.egl').generate('../../build/ui/app/index.html'); %]
 [% TemplateFactory.load('./ui/app/favicon.ico.egl').generate('../../build/ui/app/favicon.ico'); %]
+
+Angular-files
 [% TemplateFactory.load('./ui/Gruntfile.js.egl').generate('../../build/ui/Gruntfile.js'); %]
 [% TemplateFactory.load('./ui/.bowerrc.egl').generate('../../build/ui/.bowerrc'); %]
 [% TemplateFactory.load('./ui/web.js.egl').generate('../../build/ui/web.js'); %]
