@@ -1,56 +1,79 @@
-[% TemplateFactory.load('./server/bin/rails.egl').generate('../../build/server/bin/rails'); %]
-[% TemplateFactory.load('./server/bin/rake.egl').generate('../../build/server/bin/rake'); %]
-[% TemplateFactory.load('./server/bin/setup.egl').generate('../../build/server/bin/setup'); %]
-[% TemplateFactory.load('./server/bin/bundle.egl').generate('../../build/server/bin/bundle'); %]
-[% TemplateFactory.load('./server/bin/spring.egl').generate('../../build/server/bin/spring'); %]
-[% TemplateFactory.load('./server/log/development.log.egl').generate('../../build/server/log/development.log'); %]
-[% TemplateFactory.load('./server/config/boot.rb.egl').generate('../../build/server/config/boot.rb'); %]
-[% TemplateFactory.load('./server/config/locales/en.yml.egl').generate('../../build/server/config/locales/en.yml'); %]
-[% TemplateFactory.load('./server/config/application.rb.egl').generate('../../build/server/config/application.rb'); %]
-[% TemplateFactory.load('./server/config/initializers/inflections.rb.egl').generate('../../build/server/config/initializers/inflections.rb'); %]
-[% TemplateFactory.load('./server/config/initializers/cookies_serializer.rb.egl').generate('../../build/server/config/initializers/cookies_serializer.rb'); %]
-[% TemplateFactory.load('./server/config/initializers/session_store.rb.egl').generate('../../build/server/config/initializers/session_store.rb'); %]
-[% TemplateFactory.load('./server/config/initializers/filter_parameter_logging.rb.egl').generate('../../build/server/config/initializers/filter_parameter_logging.rb'); %]
-[% TemplateFactory.load('./server/config/initializers/backtrace_silencers.rb.egl').generate('../../build/server/config/initializers/backtrace_silencers.rb'); %]
-[% TemplateFactory.load('./server/config/initializers/mime_types.rb.egl').generate('../../build/server/config/initializers/mime_types.rb'); %]
-[% TemplateFactory.load('./server/config/initializers/assets.rb.egl').generate('../../build/server/config/initializers/assets.rb'); %]
-[% TemplateFactory.load('./server/config/initializers/wrap_parameters.rb.egl').generate('../../build/server/config/initializers/wrap_parameters.rb'); %]
-[% TemplateFactory.load('./server/config/database.yml.egl').generate('../../build/server/config/database.yml'); %]
-[% TemplateFactory.load('./server/config/environments/test.rb.egl').generate('../../build/server/config/environments/test.rb'); %]
-[% TemplateFactory.load('./server/config/environments/production.rb.egl').generate('../../build/server/config/environments/production.rb'); %]
-[% TemplateFactory.load('./server/config/environments/development.rb.egl').generate('../../build/server/config/environments/development.rb'); %]
-[% TemplateFactory.load('./server/config/environment.rb.egl').generate('../../build/server/config/environment.rb'); %]
-[% TemplateFactory.load('./server/config/secrets.yml.egl').generate('../../build/server/config/secrets.yml'); %]
-[% TemplateFactory.load('./server/config/routes.rb.egl').generate('../../build/server/config/routes.rb'); %]
-[% TemplateFactory.load('./server/Rakefile.egl').generate('../../build/server/Rakefile'); %]
-[% TemplateFactory.load('./server/db/migrate/20151025165913_curso_estudiante_m2m_estudiantes_cursos.rb.egl').generate('../../build/server/db/migrate/20151025165913_curso_estudiante_m2m_estudiantes_cursos.rb'); %]
-[% TemplateFactory.load('./server/db/migrate/20151025164811_create_periodo_academicos.rb.egl').generate('../../build/server/db/migrate/20151025164811_create_periodo_academicos.rb'); %]
-[% TemplateFactory.load('./server/db/migrate/20151025164801_create_cursos.rb.egl').generate('../../build/server/db/migrate/20151025164801_create_cursos.rb'); %]
+Archivos dinámicos
+Controladores
+[%for(entity in railsModel!Entity.allInstances()){%]
+	[% var template = TemplateFactory.load('./server/app/controllers/admin/entity2_controller.rb.egl'); %]
+	[% template.populate('entity', entity); %]
+    [% template.generate('../../build/server/app/controllers/admin/'+entity.name.toLowerCase().replace(' ','_')+'s_controller.rb'); %]
+[%}%]
+
+
+
+Modelos
+[% TemplateFactory.load('./server/app/models/curso.rb.egl').generate('../../build/server/app/models/curso.rb'); %]
+[% TemplateFactory.load('./server/app/models/estudiante.rb.egl').generate('../../build/server/app/models/estudiante.rb'); %]
+[% TemplateFactory.load('./server/app/models/periodo_academico.rb.egl').generate('../../build/server/app/models/periodo_academico.rb'); %]
+
+
+
+
+Helper de controlador pendiente de eliminar
+[% TemplateFactory.load('./server/app/helpers/admin/cursos_helper.rb.egl').generate('../../build/server/app/helpers/admin/cursos_helper.rb'); %]
+[% TemplateFactory.load('./server/app/helpers/admin/estudiantes_helper.rb.egl').generate('../../build/server/app/helpers/admin/estudiantes_helper.rb'); %]
+[% TemplateFactory.load('./server/app/helpers/admin/periodo_academicos_helper.rb.egl').generate('../../build/server/app/helpers/admin/periodo_academicos_helper.rb'); %]
+
+
+Migraciones
 [% TemplateFactory.load('./server/db/migrate/20151025164747_create_estudiantes.rb.egl').generate('../../build/server/db/migrate/20151025164747_create_estudiantes.rb'); %]
-[% TemplateFactory.load('./server/test/test_helper.rb.egl').generate('../../build/server/test/test_helper.rb'); %]
+[% TemplateFactory.load('./server/db/migrate/20151025164801_create_cursos.rb.egl').generate('../../build/server/db/migrate/20151025164801_create_cursos.rb'); %]
+[% TemplateFactory.load('./server/db/migrate/20151025164811_create_periodo_academicos.rb.egl').generate('../../build/server/db/migrate/20151025164811_create_periodo_academicos.rb'); %]
+[% TemplateFactory.load('./server/db/migrate/20151025165913_curso_estudiante_m2m_estudiantes_cursos.rb.egl').generate('../../build/server/db/migrate/20151025165913_curso_estudiante_m2m_estudiantes_cursos.rb'); %]
+
+Tests
+
+[% TemplateFactory.load('./server/test/controllers/admin/cursos_controller_test.rb.egl').generate('../../build/server/test/controllers/admin/cursos_controller_test.rb'); %]
+[% TemplateFactory.load('./server/test/controllers/admin/estudiantes_controller_test.rb.egl').generate('../../build/server/test/controllers/admin/estudiantes_controller_test.rb'); %]
+[% TemplateFactory.load('./server/test/controllers/admin/periodo_academicos_controller_test.rb.egl').generate('../../build/server/test/controllers/admin/periodo_academicos_controller_test.rb'); %]
+[% TemplateFactory.load('./server/test/fixtures/cursos.yml.egl').generate('../../build/server/test/fixtures/cursos.yml'); %]
+[% TemplateFactory.load('./server/test/fixtures/estudiantes.yml.egl').generate('../../build/server/test/fixtures/estudiantes.yml'); %]
+[% TemplateFactory.load('./server/test/fixtures/periodo_academicos.yml.egl').generate('../../build/server/test/fixtures/periodo_academicos.yml'); %]
 [% TemplateFactory.load('./server/test/models/curso_test.rb.egl').generate('../../build/server/test/models/curso_test.rb'); %]
 [% TemplateFactory.load('./server/test/models/estudiante_test.rb.egl').generate('../../build/server/test/models/estudiante_test.rb'); %]
 [% TemplateFactory.load('./server/test/models/periodo_academico_test.rb.egl').generate('../../build/server/test/models/periodo_academico_test.rb'); %]
-[% TemplateFactory.load('./server/test/fixtures/estudiantes.yml.egl').generate('../../build/server/test/fixtures/estudiantes.yml'); %]
-[% TemplateFactory.load('./server/test/fixtures/cursos.yml.egl').generate('../../build/server/test/fixtures/cursos.yml'); %]
-[% TemplateFactory.load('./server/test/fixtures/periodo_academicos.yml.egl').generate('../../build/server/test/fixtures/periodo_academicos.yml'); %]
-[% TemplateFactory.load('./server/test/controllers/admin/periodo_academicos_controller_test.rb.egl').generate('../../build/server/test/controllers/admin/periodo_academicos_controller_test.rb'); %]
-[% TemplateFactory.load('./server/test/controllers/admin/cursos_controller_test.rb.egl').generate('../../build/server/test/controllers/admin/cursos_controller_test.rb'); %]
-[% TemplateFactory.load('./server/test/controllers/admin/estudiantes_controller_test.rb.egl').generate('../../build/server/test/controllers/admin/estudiantes_controller_test.rb'); %]
-[% TemplateFactory.load('./server/config.ru.egl').generate('../../build/server/config.ru'); %]
-[% TemplateFactory.load('./server/app/models/estudiante.rb.egl').generate('../../build/server/app/models/estudiante.rb'); %]
-[% TemplateFactory.load('./server/app/models/periodo_academico.rb.egl').generate('../../build/server/app/models/periodo_academico.rb'); %]
-[% TemplateFactory.load('./server/app/models/curso.rb.egl').generate('../../build/server/app/models/curso.rb'); %]
+
 [% TemplateFactory.load('./server/app/controllers/application_controller.rb.egl').generate('../../build/server/app/controllers/application_controller.rb'); %]
-[% TemplateFactory.load('./server/app/controllers/admin/periodo_academicos_controller.rb.egl').generate('../../build/server/app/controllers/admin/periodo_academicos_controller.rb'); %]
-[% TemplateFactory.load('./server/app/controllers/admin/cursos_controller.rb.egl').generate('../../build/server/app/controllers/admin/cursos_controller.rb'); %]
-[% TemplateFactory.load('./server/app/controllers/admin/estudiantes_controller.rb.egl').generate('../../build/server/app/controllers/admin/estudiantes_controller.rb'); %]
-[% TemplateFactory.load('./server/app/helpers/admin/periodo_academicos_helper.rb.egl').generate('../../build/server/app/helpers/admin/periodo_academicos_helper.rb'); %]
-[% TemplateFactory.load('./server/app/helpers/admin/estudiantes_helper.rb.egl').generate('../../build/server/app/helpers/admin/estudiantes_helper.rb'); %]
-[% TemplateFactory.load('./server/app/helpers/admin/cursos_helper.rb.egl').generate('../../build/server/app/helpers/admin/cursos_helper.rb'); %]
 [% TemplateFactory.load('./server/app/helpers/application_helper.rb.egl').generate('../../build/server/app/helpers/application_helper.rb'); %]
-[% TemplateFactory.load('./server/README.rdoc.egl').generate('../../build/server/README.rdoc'); %]
-[% TemplateFactory.load('./server/Gemfile.lock.egl').generate('../../build/server/Gemfile.lock'); %]
+
+
+
+[% TemplateFactory.load('./server/bin/bundle.egl').generate('../../build/server/bin/bundle'); %]
+[% TemplateFactory.load('./server/bin/rails.egl').generate('../../build/server/bin/rails'); %]
+[% TemplateFactory.load('./server/bin/rake.egl').generate('../../build/server/bin/rake'); %]
+[% TemplateFactory.load('./server/bin/setup.egl').generate('../../build/server/bin/setup'); %]
+[% TemplateFactory.load('./server/bin/spring.egl').generate('../../build/server/bin/spring'); %]
+[% TemplateFactory.load('./server/config/application.rb.egl').generate('../../build/server/config/application.rb'); %]
+[% TemplateFactory.load('./server/config/boot.rb.egl').generate('../../build/server/config/boot.rb'); %]
+[% TemplateFactory.load('./server/config/database.yml.egl').generate('../../build/server/config/database.yml'); %]
+[% TemplateFactory.load('./server/config/environment.rb.egl').generate('../../build/server/config/environment.rb'); %]
+[% TemplateFactory.load('./server/config/environments/development.rb.egl').generate('../../build/server/config/environments/development.rb'); %]
+[% TemplateFactory.load('./server/config/environments/production.rb.egl').generate('../../build/server/config/environments/production.rb'); %]
+[% TemplateFactory.load('./server/config/environments/test.rb.egl').generate('../../build/server/config/environments/test.rb'); %]
+[% TemplateFactory.load('./server/config/initializers/assets.rb.egl').generate('../../build/server/config/initializers/assets.rb'); %]
+[% TemplateFactory.load('./server/config/initializers/backtrace_silencers.rb.egl').generate('../../build/server/config/initializers/backtrace_silencers.rb'); %]
+[% TemplateFactory.load('./server/config/initializers/cookies_serializer.rb.egl').generate('../../build/server/config/initializers/cookies_serializer.rb'); %]
+[% TemplateFactory.load('./server/config/initializers/filter_parameter_logging.rb.egl').generate('../../build/server/config/initializers/filter_parameter_logging.rb'); %]
+[% TemplateFactory.load('./server/config/initializers/inflections.rb.egl').generate('../../build/server/config/initializers/inflections.rb'); %]
+[% TemplateFactory.load('./server/config/initializers/mime_types.rb.egl').generate('../../build/server/config/initializers/mime_types.rb'); %]
+[% TemplateFactory.load('./server/config/initializers/session_store.rb.egl').generate('../../build/server/config/initializers/session_store.rb'); %]
+[% TemplateFactory.load('./server/config/initializers/wrap_parameters.rb.egl').generate('../../build/server/config/initializers/wrap_parameters.rb'); %]
+[% TemplateFactory.load('./server/config/locales/en.yml.egl').generate('../../build/server/config/locales/en.yml'); %]
+[% TemplateFactory.load('./server/config/routes.rb.egl').generate('../../build/server/config/routes.rb'); %]
+[% TemplateFactory.load('./server/config.ru.egl').generate('../../build/server/config.ru'); %]
+[% TemplateFactory.load('./server/config/secrets.yml.egl').generate('../../build/server/config/secrets.yml'); %]
+
+
 [% TemplateFactory.load('./server/Gemfile.egl').generate('../../build/server/Gemfile'); %]
-
-
+[% TemplateFactory.load('./server/Gemfile.lock.egl').generate('../../build/server/Gemfile.lock'); %]
+[% TemplateFactory.load('./server/log/development.log.egl').generate('../../build/server/log/development.log'); %]
+[% TemplateFactory.load('./server/Rakefile.egl').generate('../../build/server/Rakefile'); %]
+[% TemplateFactory.load('./server/README.rdoc.egl').generate('../../build/server/README.rdoc'); %]
+[% TemplateFactory.load('./server/test/test_helper.rb.egl').generate('../../build/server/test/test_helper.rb'); %]

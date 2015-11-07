@@ -1,7 +1,7 @@
-class Admin::CursosController < ApplicationController
+class Admin::[%= entity.name %]sController < ApplicationController
   def index
     max_per_page = 250
-    search = Curso.ransack(params[:q]).result
+    search = [%= entity.name %].ransack(params[:q]).result
     paginate search.count, max_per_page do |limit, offset|
       render json: search.limit(limit).offset(offset).
         to_json()
@@ -9,12 +9,12 @@ class Admin::CursosController < ApplicationController
   end
 
   def show
-    @object = Curso.find(params[:id])
+    @object = [%= entity.name %].find(params[:id])
     render json: @object.to_json(:methods=>:estudiante_ids)
   end
 
   def create
-    @object = Curso.new(get_params)
+    @object = [%= entity.name %].new(get_params)
     if @object.save
       render json: @object
     else
@@ -23,7 +23,7 @@ class Admin::CursosController < ApplicationController
   end
 
   def update
-    @object = Curso.find(params[:id])
+    @object = [%= entity.name %].find(params[:id])
     if @object.update_attributes(get_params)
       render json: @object
     else
@@ -32,7 +32,7 @@ class Admin::CursosController < ApplicationController
   end
 
   def destroy
-    @object = Curso.find(params[:id])
+    @object = [%= entity.name %].find(params[:id])
     if @object.destroy
       render json: @object
     else
