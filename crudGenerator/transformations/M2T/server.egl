@@ -27,9 +27,6 @@
 [% TemplateFactory.load('./server/db/migrate/20151025164811_create_periodo_academicos.rb.egl').generate('../../build/server/db/migrate/20151025164811_create_periodo_academicos.rb'); %]
 [% TemplateFactory.load('./server/db/migrate/20151025164801_create_cursos.rb.egl').generate('../../build/server/db/migrate/20151025164801_create_cursos.rb'); %]
 [% TemplateFactory.load('./server/db/migrate/20151025164747_create_estudiantes.rb.egl').generate('../../build/server/db/migrate/20151025164747_create_estudiantes.rb'); %]
-[% TemplateFactory.load('./server/db/development.sqlite3.egl').generate('../../build/server/db/development.sqlite3'); %]
-[% TemplateFactory.load('./server/db/schema.rb.egl').generate('../../build/server/db/schema.rb'); %]
-[% TemplateFactory.load('./server/db/seeds.rb.egl').generate('../../build/server/db/seeds.rb'); %]
 [% TemplateFactory.load('./server/test/test_helper.rb.egl').generate('../../build/server/test/test_helper.rb'); %]
 [% TemplateFactory.load('./server/test/models/curso_test.rb.egl').generate('../../build/server/test/models/curso_test.rb'); %]
 [% TemplateFactory.load('./server/test/models/estudiante_test.rb.egl').generate('../../build/server/test/models/estudiante_test.rb'); %]
@@ -55,3 +52,5 @@
 [% TemplateFactory.load('./server/README.rdoc.egl').generate('../../build/server/README.rdoc'); %]
 [% TemplateFactory.load('./server/Gemfile.lock.egl').generate('../../build/server/Gemfile.lock'); %]
 [% TemplateFactory.load('./server/Gemfile.egl').generate('../../build/server/Gemfile'); %]
+
+
