@@ -1,6 +1,16 @@
-Archivos dinámicos
-Controladores
-[%for(entity in railsModel!Entity.allInstances()){%]
+Archivos dinamicos
+Controllers/Services
+[% var services = railsModel!Entity.allInstances().select(e| not (e.service = null)) ;%]
+[% var route_template = TemplateFactory.load('./server/config/routes.rb.egl'); 
+	route_template.populate('services', services);
+	route_template.generate('../../build/server/config/routes.rb');
+%]
+
+[%for(entity in services){%]
+	[% var template = TemplateFactory.load('./server/test/controllers/admin/entity2_controller_test.rb.egl'); %]
+	[% template.populate('entity', entity); %]
+    [% template.generate('../../build/server/test/controllers/admin/'+entity.name.toLowerCase().replace(' ','_')+'s_controller_test.rb'); %]
+
 	[% var template = TemplateFactory.load('./server/app/controllers/admin/entity2_controller.rb.egl'); %]
 	[% template.populate('entity', entity); %]
     [% template.generate('../../build/server/app/controllers/admin/'+entity.name.toLowerCase().replace(' ','_')+'s_controller.rb'); %]
@@ -30,9 +40,7 @@ Migraciones
 
 Tests
 
-[% TemplateFactory.load('./server/test/controllers/admin/cursos_controller_test.rb.egl').generate('../../build/server/test/controllers/admin/cursos_controller_test.rb'); %]
-[% TemplateFactory.load('./server/test/controllers/admin/estudiantes_controller_test.rb.egl').generate('../../build/server/test/controllers/admin/estudiantes_controller_test.rb'); %]
-[% TemplateFactory.load('./server/test/controllers/admin/periodo_academicos_controller_test.rb.egl').generate('../../build/server/test/controllers/admin/periodo_academicos_controller_test.rb'); %]
+
 [% TemplateFactory.load('./server/test/fixtures/cursos.yml.egl').generate('../../build/server/test/fixtures/cursos.yml'); %]
 [% TemplateFactory.load('./server/test/fixtures/estudiantes.yml.egl').generate('../../build/server/test/fixtures/estudiantes.yml'); %]
 [% TemplateFactory.load('./server/test/fixtures/periodo_academicos.yml.egl').generate('../../build/server/test/fixtures/periodo_academicos.yml'); %]
@@ -45,11 +53,6 @@ Tests
 
 
 
-[% TemplateFactory.load('./server/bin/bundle.egl').generate('../../build/server/bin/bundle'); %]
-[% TemplateFactory.load('./server/bin/rails.egl').generate('../../build/server/bin/rails'); %]
-[% TemplateFactory.load('./server/bin/rake.egl').generate('../../build/server/bin/rake'); %]
-[% TemplateFactory.load('./server/bin/setup.egl').generate('../../build/server/bin/setup'); %]
-[% TemplateFactory.load('./server/bin/spring.egl').generate('../../build/server/bin/spring'); %]
 [% TemplateFactory.load('./server/config/application.rb.egl').generate('../../build/server/config/application.rb'); %]
 [% TemplateFactory.load('./server/config/boot.rb.egl').generate('../../build/server/config/boot.rb'); %]
 [% TemplateFactory.load('./server/config/database.yml.egl').generate('../../build/server/config/database.yml'); %]
@@ -66,7 +69,6 @@ Tests
 [% TemplateFactory.load('./server/config/initializers/session_store.rb.egl').generate('../../build/server/config/initializers/session_store.rb'); %]
 [% TemplateFactory.load('./server/config/initializers/wrap_parameters.rb.egl').generate('../../build/server/config/initializers/wrap_parameters.rb'); %]
 [% TemplateFactory.load('./server/config/locales/en.yml.egl').generate('../../build/server/config/locales/en.yml'); %]
-[% TemplateFactory.load('./server/config/routes.rb.egl').generate('../../build/server/config/routes.rb'); %]
 [% TemplateFactory.load('./server/config.ru.egl').generate('../../build/server/config.ru'); %]
 [% TemplateFactory.load('./server/config/secrets.yml.egl').generate('../../build/server/config/secrets.yml'); %]
 
@@ -77,3 +79,11 @@ Tests
 [% TemplateFactory.load('./server/Rakefile.egl').generate('../../build/server/Rakefile'); %]
 [% TemplateFactory.load('./server/README.rdoc.egl').generate('../../build/server/README.rdoc'); %]
 [% TemplateFactory.load('./server/test/test_helper.rb.egl').generate('../../build/server/test/test_helper.rb'); %]
+
+
+[% TemplateFactory.load('./server/bin/bundle.egl').generate('../../build/server/bin/bundle'); %]
+[% TemplateFactory.load('./server/bin/rails.egl').generate('../../build/server/bin/rails'); %]
+[% TemplateFactory.load('./server/bin/rake.egl').generate('../../build/server/bin/rake'); %]
+[% TemplateFactory.load('./server/bin/setup.egl').generate('../../build/server/bin/setup'); %]
+[% TemplateFactory.load('./server/bin/spring.egl').generate('../../build/server/bin/spring'); %]
+[% TemplateFactory.load('./server/setup.sh.egl').generate('../../build/server/setup.sh'); %]

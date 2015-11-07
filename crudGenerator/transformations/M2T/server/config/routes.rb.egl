@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
-  namespace :admin do
-  [%for(entity in railsModel!Entity.allInstances()){%]
-    resources :[%= entity.name.toLowerCase().replace(' ','_')%]s
+  [%for(entity in services){%]
+  	[% var fullname = entity.service.name.split('/').select(a| not(a='')) ;%]
+	[%= process(fullname)%]
   [%}%]
-  end
 end
+
+
+[% function process(array){
+array.println();
+	if(array.size() > 1){
+		return "namespace :"+array.first+ " do \n"+
+		process(array.select(x|not(x=array.first))) + "end";
+	}else{
+		return "			resources :"+array.first+"  \n";
+	}
+}%]
