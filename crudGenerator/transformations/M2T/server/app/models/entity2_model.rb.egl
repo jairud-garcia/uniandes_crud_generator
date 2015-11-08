@@ -1,4 +1,4 @@
-class [%= entity.name %] < ActiveRecord::Base
+class [%= entity.name.toLowerCase.firstToUpperCase() %] < ActiveRecord::Base
   default_scope { order("#{table_name}.id") }
 [%
  	for(association in entity.associationAsSource){

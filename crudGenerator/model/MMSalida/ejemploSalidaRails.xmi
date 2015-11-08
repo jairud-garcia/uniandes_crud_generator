@@ -22,7 +22,7 @@
     </attributes>
     <attributes name="codigo" dataType="string"/>
     <attributes name="descripcion" dataType="text"/>
-    <attributes name="periodo_academico_id"/>
+    <attributes name="periodoacademico_id"/>
     <service name="/admin/cursos" allowCreate="true" allowRead="true" allowUpdate="true" allowDelete="true">
       <fields name="nombre" dataType="string"/>
       <fields name="codigo" dataType="string"/>

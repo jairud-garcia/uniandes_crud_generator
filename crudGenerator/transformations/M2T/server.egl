@@ -1,5 +1,6 @@
 Archivos dinamicos
 Controllers/Services
+[% var date = new Native("java.util.Date")(); %]
 [% var services = railsModel!Entity.allInstances().select(e| not (e.service = null)) ;%]
 [% var route_template = TemplateFactory.load('./server/config/routes.rb.egl'); 
 	route_template.populate('services', services);
@@ -23,25 +24,42 @@ Modelos
 	var template = TemplateFactory.load('./server/app/models/entity2_model.rb.egl');
 	template.populate('entity', entity);
     template.generate('../../build/server/app/models/'+entity.name.toLowerCase().replace(' ','_')+'.rb'); 
+    //Test
+    var template = TemplateFactory.load('./server/test/models/entity2_model_test.rb.egl');
+	template.populate('entity', entity);
+    template.generate('../../build/server/test/models/'+entity.name.toLowerCase().replace(' ','_')+'_test.rb');
 }%]
 
 
 
 Migraciones
-[% TemplateFactory.load('./server/db/migrate/20151025164747_create_estudiantes.rb.egl').generate('../../build/server/db/migrate/20151025164747_create_estudiantes.rb'); %]
-[% TemplateFactory.load('./server/db/migrate/20151025164801_create_cursos.rb.egl').generate('../../build/server/db/migrate/20151025164801_create_cursos.rb'); %]
-[% TemplateFactory.load('./server/db/migrate/20151025164811_create_periodo_academicos.rb.egl').generate('../../build/server/db/migrate/20151025164811_create_periodo_academicos.rb'); %]
-[% TemplateFactory.load('./server/db/migrate/20151025165913_curso_estudiante_m2m_estudiantes_cursos.rb.egl').generate('../../build/server/db/migrate/20151025165913_curso_estudiante_m2m_estudiantes_cursos.rb'); %]
+[% 
+var format = new Native("java.text.SimpleDateFormat")("yyyyMMdd");
+var timestamp = format.format(date);
+var index = 1;	
+for(entity in railsModel!Entity.allInstances()){
+	var template = TemplateFactory.load('./server/db/migrate/entity2_migration.rb.egl');
+	template.populate('entity', entity);
+    template.generate('../../build/server/db/migrate/'+timestamp+"9999"+index+'_create_'+entity.name.toLowerCase().replace(' ','_')+'s.rb');
+    index=index+1; 
+}
+for(association in railsModel!Association.allInstances().select(a|a.manySource and a.manyTarget)){
+	var associationName = association.sourceName.firstToUpperCase()+'_'+association.targetName.firstToUpperCase();
+	if(association.sourceName>association.targetName)
+		associationName = association.targetName.firstToUpperCase()+'_'+association.sourceName.firstToUpperCase();
 
-Tests
+	var template = TemplateFactory.load('./server/db/migrate/association2_migration.rb.egl');
+	template.populate('association', association);
+	template.populate('associationName', associationName);
+    template.generate('../../build/server/db/migrate/'+timestamp+"9999"+index+'_create_'+associationName.toLowerCase().replace(' ','_')+'.rb');
+    index=index+1; 
+}
 
 
-[% TemplateFactory.load('./server/test/fixtures/cursos.yml.egl').generate('../../build/server/test/fixtures/cursos.yml'); %]
-[% TemplateFactory.load('./server/test/fixtures/estudiantes.yml.egl').generate('../../build/server/test/fixtures/estudiantes.yml'); %]
-[% TemplateFactory.load('./server/test/fixtures/periodo_academicos.yml.egl').generate('../../build/server/test/fixtures/periodo_academicos.yml'); %]
-[% TemplateFactory.load('./server/test/models/curso_test.rb.egl').generate('../../build/server/test/models/curso_test.rb'); %]
-[% TemplateFactory.load('./server/test/models/estudiante_test.rb.egl').generate('../../build/server/test/models/estudiante_test.rb'); %]
-[% TemplateFactory.load('./server/test/models/periodo_academico_test.rb.egl').generate('../../build/server/test/models/periodo_academico_test.rb'); %]
+%]
+
+
+
 
 [% TemplateFactory.load('./server/app/controllers/application_controller.rb.egl').generate('../../build/server/app/controllers/application_controller.rb'); %]
 [% TemplateFactory.load('./server/app/helpers/application_helper.rb.egl').generate('../../build/server/app/helpers/application_helper.rb'); %]
@@ -82,3 +100,4 @@ Tests
 [% TemplateFactory.load('./server/bin/setup.egl').generate('../../build/server/bin/setup'); %]
 [% TemplateFactory.load('./server/bin/spring.egl').generate('../../build/server/bin/spring'); %]
 [% TemplateFactory.load('./server/setup.sh.egl').generate('../../build/server/setup.sh'); %]
+

@@ -1,4 +1,4 @@
-class Admin::[%= entity.name %]sController < ApplicationController
+class Admin::[%= entity.name.toLowerCase.firstToUpperCase() %]sController < ApplicationController
   [% if(entity.service.allowRead) {%]
   def index
     max_per_page = 250
