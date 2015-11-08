@@ -6,30 +6,25 @@ Controllers/Services
 	route_template.generate('../../build/server/config/routes.rb');
 %]
 
-[%for(entity in services){%]
-	[% var template = TemplateFactory.load('./server/test/controllers/admin/entity2_controller_test.rb.egl'); %]
-	[% template.populate('entity', entity); %]
-    [% template.generate('../../build/server/test/controllers/admin/'+entity.name.toLowerCase().replace(' ','_')+'s_controller_test.rb'); %]
+[%for(entity in services){
+	var template = TemplateFactory.load('./server/test/controllers/admin/entity2_controller_test.rb.egl');
+	template.populate('entity', entity);
+    template.generate('../../build/server/test/controllers/admin/'+entity.name.toLowerCase().replace(' ','_')+'s_controller_test.rb');
 
-	[% var template = TemplateFactory.load('./server/app/controllers/admin/entity2_controller.rb.egl'); %]
-	[% template.populate('entity', entity); %]
-    [% template.generate('../../build/server/app/controllers/admin/'+entity.name.toLowerCase().replace(' ','_')+'s_controller.rb'); %]
-[%}%]
+	var template = TemplateFactory.load('./server/app/controllers/admin/entity2_controller.rb.egl');
+	template.populate('entity', entity);
+    template.generate('../../build/server/app/controllers/admin/'+entity.name.toLowerCase().replace(' ','_')+'s_controller.rb');
+}%]
 
 
 
 Modelos
-[% TemplateFactory.load('./server/app/models/curso.rb.egl').generate('../../build/server/app/models/curso.rb'); %]
-[% TemplateFactory.load('./server/app/models/estudiante.rb.egl').generate('../../build/server/app/models/estudiante.rb'); %]
-[% TemplateFactory.load('./server/app/models/periodo_academico.rb.egl').generate('../../build/server/app/models/periodo_academico.rb'); %]
+[%for(entity in railsModel!Entity.allInstances()){
+	var template = TemplateFactory.load('./server/app/models/entity2_model.rb.egl');
+	template.populate('entity', entity);
+    template.generate('../../build/server/app/models/'+entity.name.toLowerCase().replace(' ','_')+'.rb'); 
+}%]
 
-
-
-
-Helper de controlador pendiente de eliminar
-[% TemplateFactory.load('./server/app/helpers/admin/cursos_helper.rb.egl').generate('../../build/server/app/helpers/admin/cursos_helper.rb'); %]
-[% TemplateFactory.load('./server/app/helpers/admin/estudiantes_helper.rb.egl').generate('../../build/server/app/helpers/admin/estudiantes_helper.rb'); %]
-[% TemplateFactory.load('./server/app/helpers/admin/periodo_academicos_helper.rb.egl').generate('../../build/server/app/helpers/admin/periodo_academicos_helper.rb'); %]
 
 
 Migraciones
