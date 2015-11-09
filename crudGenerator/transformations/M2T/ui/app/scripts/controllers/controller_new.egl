@@ -1,0 +1,22 @@
+'use strict'
+
+###*
+ # @ngdoc function
+ # @name uiApp.controller:[%=ctl.service.name.firstToUpperCase()%]sNewCtrl
+ # @description
+ # # [%=ctl.service.name.firstToUpperCase()%]sNewCtrl
+ # Controller of the uiApp
+###
+angular.module 'uiApp'
+  .controller '[%=ctl.service.name.firstToUpperCase()%]sNewCtrl', ([%=ctl.service.name.firstToUpperCase()%],$window) ->
+    scope=@
+    @save = (form) ->
+      new_object = new [%=ctl.service.name.firstToUpperCase()%](@object);
+      new_object.$save().then(->
+        scope.alert={type: "info", msg: "Guardado"}
+        $window.location.href = '#/[%=ctl.service.name.toLowerCase()%]s';
+      , ->
+        scope.alert={type: 'danger', msg: "No guardado"}
+      )
+    return
+

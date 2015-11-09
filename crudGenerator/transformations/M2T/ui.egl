@@ -8,19 +8,30 @@ Test-files
 [% TemplateFactory.load('./ui/test/.jshintrc.egl').generate('../../build/ui/test/.jshintrc'); %]
 [% TemplateFactory.load('./ui/test/karma.conf.coffee.egl').generate('../../build/ui/test/karma.conf.coffee'); %]
 [% TemplateFactory.load('./ui/test/spec/controllers/main.coffee.egl').generate('../../build/ui/test/spec/controllers/main.coffee'); %]
-[% TemplateFactory.load('./ui/test/spec/controllers/periodo_academicos_new.coffee.egl').generate('../../build/ui/test/spec/controllers/periodo_academicos_new.coffee'); %]
-[% TemplateFactory.load('./ui/test/spec/controllers/periodo_academicos.coffee.egl').generate('../../build/ui/test/spec/controllers/periodo_academicos.coffee'); %]
-[% TemplateFactory.load('./ui/test/spec/controllers/periodo_academicos_edit.coffee.egl').generate('../../build/ui/test/spec/controllers/periodo_academicos_edit.coffee'); %]
-[% TemplateFactory.load('./ui/test/spec/controllers/estudiantes_new.coffee.egl').generate('../../build/ui/test/spec/controllers/estudiantes_new.coffee'); %]
-[% TemplateFactory.load('./ui/test/spec/controllers/cursos_new.coffee.egl').generate('../../build/ui/test/spec/controllers/cursos_new.coffee'); %]
-[% TemplateFactory.load('./ui/test/spec/controllers/cursos_edit.coffee.egl').generate('../../build/ui/test/spec/controllers/cursos_edit.coffee'); %]
-[% TemplateFactory.load('./ui/test/spec/controllers/estudiantes.coffee.egl').generate('../../build/ui/test/spec/controllers/estudiantes.coffee'); %]
-[% TemplateFactory.load('./ui/test/spec/controllers/estudiantes_edit.coffee.egl').generate('../../build/ui/test/spec/controllers/estudiantes_edit.coffee'); %]
+
+[%
+ 	for(test in angularModel!Application.getAllInstances().get(0).cruds){
+ 		if(test.allowCreate){
+ 			var template = TemplateFactory.load('./ui/test/spec/controllers/tests_new.egl'); 
+ 			template.populate('test', test);
+ 			template.generate('../../build/ui/test/spec/controllers/'+test.service.name.toLowerCase()+'s_new.coffee');
+ 		}
+ 		
+ 		if(test.allowRead or test.allowDelete){
+ 			var template = TemplateFactory.load('./ui/test/spec/controllers/tests.egl'); 
+ 			template.populate('test', test);
+ 			template.generate('../../build/ui/test/spec/controllers/'+test.service.name.toLowerCase()+'s.coffee');
+ 		}
+ 		
+ 		if(test.allowUpdate){
+ 			var template = TemplateFactory.load('./ui/test/spec/controllers/tests_edit.egl'); 
+ 			template.populate('test', test);
+ 			template.generate('../../build/ui/test/spec/controllers/'+test.service.name.toLowerCase()+'s_edit.coffee');
+ 		}
+ 	}
+%]
+
 [% TemplateFactory.load('./ui/test/spec/controllers/about.coffee.egl').generate('../../build/ui/test/spec/controllers/about.coffee'); %]
-[% TemplateFactory.load('./ui/test/spec/controllers/cursos.coffee.egl').generate('../../build/ui/test/spec/controllers/cursos.coffee'); %]
-[% TemplateFactory.load('./ui/test/spec/services/periodoacademico.coffee.egl').generate('../../build/ui/test/spec/services/periodoacademico.coffee'); %]
-[% TemplateFactory.load('./ui/test/spec/services/estudiante.coffee.egl').generate('../../build/ui/test/spec/services/estudiante.coffee'); %]
-[% TemplateFactory.load('./ui/test/spec/services/curso.coffee.egl').generate('../../build/ui/test/spec/services/curso.coffee'); %]
 
 Static-files
 [% TemplateFactory.load('./ui/.editorconfig.egl').generate('../../build/ui/.editorconfig'); %]
@@ -34,38 +45,69 @@ Static-files
 
 Controllers-files
 [% TemplateFactory.load('./ui/app/scripts/controllers/main.coffee.egl').generate('../../build/ui/app/scripts/controllers/main.coffee'); %]
-[% TemplateFactory.load('./ui/app/scripts/controllers/periodo_academicos_new.coffee.egl').generate('../../build/ui/app/scripts/controllers/periodo_academicos_new.coffee'); %]
-[% TemplateFactory.load('./ui/app/scripts/controllers/periodo_academicos.coffee.egl').generate('../../build/ui/app/scripts/controllers/periodo_academicos.coffee'); %]
-[% TemplateFactory.load('./ui/app/scripts/controllers/periodo_academicos_edit.coffee.egl').generate('../../build/ui/app/scripts/controllers/periodo_academicos_edit.coffee'); %]
-[% TemplateFactory.load('./ui/app/scripts/controllers/estudiantes_new.coffee.egl').generate('../../build/ui/app/scripts/controllers/estudiantes_new.coffee'); %]
-[% TemplateFactory.load('./ui/app/scripts/controllers/cursos_new.coffee.egl').generate('../../build/ui/app/scripts/controllers/cursos_new.coffee'); %]
-[% TemplateFactory.load('./ui/app/scripts/controllers/cursos_edit.coffee.egl').generate('../../build/ui/app/scripts/controllers/cursos_edit.coffee'); %]
-[% TemplateFactory.load('./ui/app/scripts/controllers/estudiantes.coffee.egl').generate('../../build/ui/app/scripts/controllers/estudiantes.coffee'); %]
-[% TemplateFactory.load('./ui/app/scripts/controllers/estudiantes_edit.coffee.egl').generate('../../build/ui/app/scripts/controllers/estudiantes_edit.coffee'); %]
-[% TemplateFactory.load('./ui/app/scripts/controllers/cursos.coffee.egl').generate('../../build/ui/app/scripts/controllers/cursos.coffee'); %]
+
+[%
+ 	for(crud in angularModel!Application.getAllInstances().get(0).cruds){
+ 		if(crud.allowCreate){
+ 			var template = TemplateFactory.load('./ui/app/scripts/controllers/controller_new.egl'); 
+ 			template.populate('ctl', crud);
+ 			template.generate('../../build/ui/app/scripts/controllers/'+crud.service.name.toLowerCase()+'s_new.coffee');
+ 		}
+ 		if(crud.allowRead or crud.allowDelete){
+ 			var template = TemplateFactory.load('./ui/app/scripts/controllers/controller.egl'); 
+ 			template.populate('ctl', crud);
+ 			template.generate('../../build/ui/app/scripts/controllers/'+crud.service.name.toLowerCase()+'s.coffee');
+ 		}
+ 		if(crud.allowUpdate){
+ 			var template = TemplateFactory.load('./ui/app/scripts/controllers/controller_edit.egl'); 
+ 			template.populate('ctl', crud);
+ 			template.generate('../../build/ui/app/scripts/controllers/'+crud.service.name.toLowerCase()+'s_edit.coffee');
+ 		}
+ 	}
+ %]
 
 AppJs-file
 [% TemplateFactory.load('./ui/app/scripts/app.coffee.egl').generate('../../build/ui/app/scripts/app.coffee'); %]
 
 Services-files
-[% TemplateFactory.load('./ui/app/scripts/services/periodoacademico.coffee.egl').generate('../../build/ui/app/scripts/services/periodoacademico.coffee'); %]
-[% TemplateFactory.load('./ui/app/scripts/services/estudiante.coffee.egl').generate('../../build/ui/app/scripts/services/estudiante.coffee'); %]
-[% TemplateFactory.load('./ui/app/scripts/services/curso.coffee.egl').generate('../../build/ui/app/scripts/services/curso.coffee'); %]
+
+[%
+ 	for(service in angularModel!Application.getAllInstances().get(0).services){
+ 	 var template = TemplateFactory.load('./ui/app/scripts/services/services.egl');
+ 	 template.populate('service', service);
+ 	 template.generate('../../build/ui/app/scripts/services/'+service.name.toLowerCase()+'.coffee'); 
+ 	
+ 	}
+%]
 
 ConfigJs-file
 [% TemplateFactory.load('./ui/app/scripts/config.js.egl').generate('../../build/ui/app/scripts/config.js'); %]
 
 Views-files
-[% TemplateFactory.load('./ui/app/views/cursos.html.egl').generate('../../build/ui/app/views/cursos.html'); %]
-[% TemplateFactory.load('./ui/app/views/estudiantes_new.html.egl').generate('../../build/ui/app/views/estudiantes_new.html'); %]
-[% TemplateFactory.load('./ui/app/views/periodo_academicos.html.egl').generate('../../build/ui/app/views/periodo_academicos.html'); %]
-[% TemplateFactory.load('./ui/app/views/cursos_edit.html.egl').generate('../../build/ui/app/views/cursos_edit.html'); %]
-[% TemplateFactory.load('./ui/app/views/estudiantes_edit.html.egl').generate('../../build/ui/app/views/estudiantes_edit.html'); %]
-[% TemplateFactory.load('./ui/app/views/periodo_academicos_edit.html.egl').generate('../../build/ui/app/views/periodo_academicos_edit.html'); %]
-[% TemplateFactory.load('./ui/app/views/estudiantes.html.egl').generate('../../build/ui/app/views/estudiantes.html'); %]
-[% TemplateFactory.load('./ui/app/views/cursos_new.html.egl').generate('../../build/ui/app/views/cursos_new.html'); %]
-[% TemplateFactory.load('./ui/app/views/periodo_academicos_new.html.egl').generate('../../build/ui/app/views/periodo_academicos_new.html'); %]
 [% TemplateFactory.load('./ui/app/views/main.html.egl').generate('../../build/ui/app/views/main.html'); %]
+
+[%
+ 	for(view in angularModel!Application.getAllInstances().get(0).cruds){
+ 		
+ 		if(view.allowCreate){
+	 		var template = TemplateFactory.load('./ui/app/views/view_new.egl');
+	 		template.populate('view', view);
+	 		template.generate('../../build/ui/app/views/'+view.service.name.toLowerCase()+'s_new.html');
+ 		}
+ 		
+ 		if(view.allowRead or view.allowDelete){
+	 		var template = TemplateFactory.load('./ui/app/views/view.egl');
+	 		template.populate('view', view);
+	 		template.generate('../../build/ui/app/views/'+view.service.name.toLowerCase()+'s.html');
+ 		}
+ 		
+ 		if(view.allowUpdate){
+ 			var template = TemplateFactory.load('./ui/app/views/view_edit.egl');
+	 		template.populate('view', view);
+	 		template.generate('../../build/ui/app/views/'+view.service.name.toLowerCase()+'s_edit.html');
+ 		}
+ 	}
+%]
 
 BasicIndex-files
 [% TemplateFactory.load('./ui/app/robots.txt.egl').generate('../../build/ui/app/robots.txt'); %]
