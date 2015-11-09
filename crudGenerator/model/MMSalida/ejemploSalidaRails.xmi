@@ -22,7 +22,7 @@
     </attributes>
     <attributes name="codigo" dataType="string"/>
     <attributes name="descripcion" dataType="text"/>
-    <attributes name="periodo_academico_id"/>
+    <attributes name="periodoacademico_id"/>
     <service name="/admin/cursos" allowCreate="true" allowRead="true" allowUpdate="true" allowDelete="true">
       <fields name="nombre" dataType="string"/>
       <fields name="codigo" dataType="string"/>
@@ -30,7 +30,7 @@
       <fields name="estudiante_ids" dataType="array"/>
       <fields name="periodo_academico_id"/>
     </service>
-    <associationAsSource sourceName="cursos" targetName="periodo_academico" manySource="true" target="//@entities.2"/>
+    <associationAsSource sourceName="cursos" targetName="periodoacademico" manySource="true" target="//@entities.2"/>
   </entities>
   <entities name="PeriodoAcademico" associationAsTarget="//@entities.1/@associationAsSource.0">
     <attributes name="nombre" dataType="string">

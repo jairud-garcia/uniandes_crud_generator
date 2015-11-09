@@ -2,4 +2,7 @@
 
 chmod a+x bin/*
 bundle install 
+bundle exec rake db:migrate
+bundle exec rake diagram:all
+bundle exec annotate --force
 bundle exec rails server

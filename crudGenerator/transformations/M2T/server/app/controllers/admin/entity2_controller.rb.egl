@@ -1,4 +1,5 @@
-class Admin::[%= entity.name %]sController < ApplicationController
+class Admin::[%= entity.name.toLowerCase.firstToUpperCase() %]sController < ApplicationController
+  [% if(entity.service.allowRead) {%]
   def index
     max_per_page = 250
     search = [%= entity.name %].ransack(params[:q]).result
@@ -12,7 +13,8 @@ class Admin::[%= entity.name %]sController < ApplicationController
     @object = [%= entity.name %].find(params[:id])
     render json: @object.to_json(:methods=>:estudiante_ids)
   end
-
+  [%}%]
+  [% if(entity.service.allowCreate) {%]
   def create
     @object = [%= entity.name %].new(get_params)
     if @object.save
@@ -21,7 +23,8 @@ class Admin::[%= entity.name %]sController < ApplicationController
       render json: @object.errors, status: :unprocessable_entity
     end
   end
-
+  [%}%]
+  [% if(entity.service.allowUpdate) {%]
   def update
     @object = [%= entity.name %].find(params[:id])
     if @object.update_attributes(get_params)
@@ -30,7 +33,8 @@ class Admin::[%= entity.name %]sController < ApplicationController
       render json: @object.errors, status: :unprocessable_entity
     end
   end
-
+  [%}%]
+  [% if(entity.service.allowDelete) {%]
   def destroy
     @object = [%= entity.name %].find(params[:id])
     if @object.destroy
@@ -39,10 +43,15 @@ class Admin::[%= entity.name %]sController < ApplicationController
       render json: @object.errors, status: :unprocessable_entity
     end
   end
-
+  [%}%]
   protected
   def get_params
-    [% var attributes= entity.attributes.collect(a|':'+a.name);%]
-    params.permit([%= attributes.toString().replace('\\[','').replace('\\]','')%])
+  	[% 	var allowed = entity.attributes.collect(a|':'+a.name);
+  	 	allowed.addAll(entity.associationAsSource.select(a|a.manyTarget).
+  	 		collect(a|":"+a.targetName.substring(0,a.targetName.length()-1)+"_ids=>[]"));
+   		allowed.addAll(entity.associationAsTarget.select(a|a.manySource).
+   			collect(a|":"+a.sourceName.substring(0,a.sourceName.length()-1)+"_ids=>[]"));
+   	%]
+  	params.permit([%= allowed.toString().substring(1,allowed.toString().length()-1)%])
   end
 end
