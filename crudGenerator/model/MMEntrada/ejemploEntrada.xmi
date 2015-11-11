@@ -33,7 +33,7 @@
       <fields xsi:type="crudGenerator:AssociationField" association="//@entities.1/@associationAsSource.0"/>
       <fields xsi:type="crudGenerator:AssociationField" component="autocompleteMultiple" association="//@entities.0/@associationAsSource.0"/>
     </crud>
-    <associationAsSource sourceName="cursos" targetName="periodo_academico" manySource="true" target="//@entities.2"/>
+    <associationAsSource sourceName="cursos" targetName="periodoacademico" manySource="true" target="//@entities.2"/>
   </entities>
   <entities name="PeriodoAcademico" associationAsTarget="//@entities.1/@associationAsSource.0">
     <atributes name="nombre" dataType="string">
@@ -45,5 +45,10 @@
     <atributes name="fechaFin" dataType="date" isFilter="false">
       <validations/>
     </atributes>
+    <crud>
+      <fields xsi:type="crudGenerator:PrimitiveField" attribute="//@entities.2/@atributes.0"/>
+      <fields xsi:type="crudGenerator:PrimitiveField" attribute="//@entities.2/@atributes.1"/>
+      <fields xsi:type="crudGenerator:PrimitiveField" attribute="//@entities.2/@atributes.2"/>
+    </crud>
   </entities>
 </crudGenerator:Application>

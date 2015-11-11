@@ -1,8 +1,35 @@
 pre{
 }
 post{
- 	//falta adicionar código para agregar los atributos fk generados
- 	//por las associaciones
+	//mapear asociaciones
+	var entities_by_name=rails!Entity.allInstances().aggregate(a|a.name,a);
+ 	for(s in crud!Association.allInstances()){
+ 		//reordenar asociaciones muchos a uno
+ 		if(s.manySource and not s.manyTarget ){
+ 			("Association2Association -"+s.sourceName+' /  '+s.targetName).println();
+ 			var t = new rails!Association();
+ 			t.sourceName = s.targetName;
+		 	t.source = entities_by_name.get(s.target.name.toLowerCase().firstToUpperCase().replace(' ',''));
+		 	t.manySource = false;
+		 	
+		 	t.targetName = s.sourceName;
+		 	t.target = entities_by_name.get(s.source.name.toLowerCase().firstToUpperCase().replace(' ',''));
+		 	t.manyTarget=true;	
+ 		}else
+ 			var t_association = s.equivalent();
+ 	}
+}
+@lazy
+rule Association2Association
+	transform s : crud!Association
+	to t : rails!Association {
+	("Association2Association "+s.sourceName+' /  '+s.targetName).println();
+	t.sourceName = s.sourceName;
+ 	t.source = entities_by_name.get(s.source.name);
+ 	t.manySource = s.manySource;
+ 	t.targetName = s.targetName;
+ 	t.target = entities_by_name.get(s.target.name);
+ 	t.manyTarget=s.manyTarget;	
 }
 rule App2App
 	transform s : crud!Application
@@ -28,31 +55,34 @@ rule Entity2Entity
 		t.service.fields = s.crud.fields.select(f|f.isKindOf(crud!PrimitiveField)).equivalent();
 		for(associationField in s.crud.fields.select(f|f.isKindOf(crud!AssociationField))){
 			("    associationField "+associationField.association.source.name+" / "+associationField.association.target.name).println();
-			//TODO: Association fields no se está mapeando bien
-			//Puede haber error en los datos de entrada (AssociationField)
 			var field = new rails!Field();
-			if(s.atributes.includes(associationField.association.source)){
+			if(s == associationField.association.source){
 				//entity is src
 				if(associationField.association.manyTarget){
-					("      1").println();
 					field.dataType=rails!DataType#array;
 					field.name = associationField.association.target.name.toLowerCase().replace(' ','_')+'_ids';
 				}
 				else{
-					("      2").println();
-					field.dataType=convertDataType(associationField.association.source.dataType)+'_id';
+					field.dataType=rails!DataType#int;
+					field.name = associationField.association.target.name.toLowerCase().replace(' ','_')+'_id';
+					var fk_attribute=new rails!Attribute();
+					fk_attribute.name = field.name; 
+					fk_attribute.dataType=field.dataType;
+					t.attributes.add(fk_attribute);
 				}
 			}else{
 				//entity is target
 				if(associationField.association.manySource){
-					("      3").println();
 					field.dataType=rails!DataType#array;
 					field.name = associationField.association.source.name.toLowerCase().replace(' ','_')+'_ids';
 				}
 				else{
-					("      4").println();
-					field.dataType=convertDataType(associationField.association.target.dataType);
+					field.dataType=rails!DataType#int;
 					field.name = associationField.association.source.name.toLowerCase().replace(' ','_')+'_id';
+					var fk_attribute=new rails!Attribute();
+					fk_attribute.name = field.name; 
+					fk_attribute.dataType=field.dataType;
+					t.attributes.add(fk_attribute);
 				}
 			}
 			t.service.fields.add(field);
