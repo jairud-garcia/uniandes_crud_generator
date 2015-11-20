@@ -1,14 +1,17 @@
-Config-files
+Config-file
+[% "ConfigFiles".println() ;%]
 [% TemplateFactory.load('./ui/.travis.yml.egl').generate('../build/ui/.travis.yml'); %]
 [% TemplateFactory.load('./ui/package.json.egl').generate('../build/ui/package.json'); %]
 [% TemplateFactory.load('./ui/bower.json.egl').generate('../build/ui/bower.json'); %]
 [% TemplateFactory.load('./ui/.yo-rc.json.egl').generate('../build/ui/.yo-rc.json'); %]
 
 Test-files
+[% "Test files".println() ;%]
 [% TemplateFactory.load('./ui/test/.jshintrc.egl').generate('../build/ui/test/.jshintrc'); %]
 [% TemplateFactory.load('./ui/test/karma.conf.coffee.egl').generate('../build/ui/test/karma.conf.coffee'); %]
 [% TemplateFactory.load('./ui/test/spec/controllers/main.coffee.egl').generate('../build/ui/test/spec/controllers/main.coffee'); %]
 
+[% "Cruds".println() ;%]
 [%
  	for(test in angularModel!Application.getAllInstances().get(0).cruds){
  		if(test.allowCreate){
@@ -31,6 +34,7 @@ Test-files
  	}
 %]
 
+[% "About".println() ;%]
 [% TemplateFactory.load('./ui/test/spec/controllers/about.coffee.egl').generate('../build/ui/test/spec/controllers/about.coffee'); %]
 
 Static-files
