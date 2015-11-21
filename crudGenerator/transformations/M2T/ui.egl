@@ -11,31 +11,6 @@ Test-files
 [% TemplateFactory.load('./ui/test/karma.conf.coffee.egl').generate('../build/ui/test/karma.conf.coffee'); %]
 [% TemplateFactory.load('./ui/test/spec/controllers/main.coffee.egl').generate('../build/ui/test/spec/controllers/main.coffee'); %]
 
-[% "Cruds".println() ;%]
-[%
- 	for(test in angularModel!Application.getAllInstances().get(0).cruds){
- 		if(test.allowCreate){
- 			var template = TemplateFactory.load('./ui/test/spec/controllers/tests_new.egl'); 
- 			template.populate('test', test);
- 			template.generate('../build/ui/test/spec/controllers/'+test.service.name.toLowerCase()+'s_new.coffee');
- 		}
- 		
- 		if(test.allowRead or test.allowDelete){
- 			var template = TemplateFactory.load('./ui/test/spec/controllers/tests.egl'); 
- 			template.populate('test', test);
- 			template.generate('../build/ui/test/spec/controllers/'+test.service.name.toLowerCase()+'s.coffee');
- 		}
- 		
- 		if(test.allowUpdate){
- 			var template = TemplateFactory.load('./ui/test/spec/controllers/tests_edit.egl'); 
- 			template.populate('test', test);
- 			template.generate('../build/ui/test/spec/controllers/'+test.service.name.toLowerCase()+'s_edit.coffee');
- 		}
- 	}
-%]
-
-[% "About".println() ;%]
-[% TemplateFactory.load('./ui/test/spec/controllers/about.coffee.egl').generate('../build/ui/test/spec/controllers/about.coffee'); %]
 
 Static-files
 [% TemplateFactory.load('./ui/.editorconfig.egl').generate('../build/ui/.editorconfig'); %]
@@ -43,9 +18,20 @@ Static-files
 [% TemplateFactory.load('./ui/.jshintrc.egl').generate('../build/ui/.jshintrc'); %]
 [% TemplateFactory.load('./ui/app/.htaccess.egl').generate('../build/ui/app/.htaccess'); %]
 [% TemplateFactory.load('./ui/app/404.html.egl').generate('../build/ui/app/404.html'); %]
-[% TemplateFactory.load('./ui/app/images/yeoman.png.egl').generate('../build/ui/app/images/yeoman.png'); %]
 [% TemplateFactory.load('./ui/app/styles/main.scss.egl').generate('../build/ui/app/styles/main.scss'); %]
 [% TemplateFactory.load('./ui/app/.buildignore.egl').generate('../build/ui/app/.buildignore'); %]
+
+Services-files
+
+[%
+ 	for(service in angularModel!Application.getAllInstances().get(0).services){
+ 	 var template = TemplateFactory.load('./ui/app/scripts/services/services.egl');
+ 	 template.populate('service', service);
+ 	 template.generate('../build/ui/app/scripts/services/'+service.name.toLowerCase()+'.coffee'); 
+ 	
+ 	}
+%]
+
 
 Controllers-files
 [% TemplateFactory.load('./ui/app/scripts/controllers/main.coffee.egl').generate('../build/ui/app/scripts/controllers/main.coffee'); %]
@@ -73,19 +59,6 @@ Controllers-files
 AppJs-file
 [% TemplateFactory.load('./ui/app/scripts/app.coffee.egl').generate('../build/ui/app/scripts/app.coffee'); %]
 
-Services-files
-
-[%
- 	for(service in angularModel!Application.getAllInstances().get(0).services){
- 	 var template = TemplateFactory.load('./ui/app/scripts/services/services.egl');
- 	 template.populate('service', service);
- 	 template.generate('../build/ui/app/scripts/services/'+service.name.toLowerCase()+'.coffee'); 
- 	
- 	}
-%]
-
-ConfigJs-file
-[% TemplateFactory.load('./ui/app/scripts/config.js.egl').generate('../build/ui/app/scripts/config.js'); %]
 
 Views-files
 [% TemplateFactory.load('./ui/app/views/main.html.egl').generate('../build/ui/app/views/main.html'); %]
@@ -124,3 +97,27 @@ Angular-files
 [% TemplateFactory.load('./ui/web.js.egl').generate('../build/ui/web.js'); %]
 [% TemplateFactory.load('./ui/dist/.htaccess.egl').generate('../build/ui/dist/.htaccess'); %]
 [% TemplateFactory.load('./ui/Procfile.egl').generate('../build/ui/Procfile'); %]
+
+[% "Crud test".println() ;%]
+[%
+ 	for(test in angularModel!Application.getAllInstances().get(0).cruds){
+ 		if(test.allowCreate){
+ 			var template = TemplateFactory.load('./ui/test/spec/controllers/tests_new.egl'); 
+ 			template.populate('test', test);
+ 			template.generate('../build/ui/test/spec/controllers/'+test.service.name.toLowerCase()+'s_new.coffee');
+ 		}
+ 		
+ 		if(test.allowRead or test.allowDelete){
+ 			var template = TemplateFactory.load('./ui/test/spec/controllers/tests.egl'); 
+ 			template.populate('test', test);
+ 			template.generate('../build/ui/test/spec/controllers/'+test.service.name.toLowerCase()+'s.coffee');
+ 		}
+ 		
+ 		if(test.allowUpdate){
+ 			var template = TemplateFactory.load('./ui/test/spec/controllers/tests_edit.egl'); 
+ 			template.populate('test', test);
+ 			template.generate('../build/ui/test/spec/controllers/'+test.service.name.toLowerCase()+'s_edit.coffee');
+ 		}
+ 	}
+%]
+
