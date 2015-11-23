@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="ASCII"?>
-<crudAngularGenerator:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:crudAngularGenerator="http://www.example.org/crudAngularGenerator" name="ejemplo">
-  <services name="Estudiante" url="admin/estudiantes"/>
-  <services name="Curso" url="admin/cursos"/>
-  <services name="Periodoacademico" url="admin/periodoacademicos"/>
-  <cruds service="//@services.0">
-    <fields key="nombre" dataType="string"/>
-    <fields key="apellido" dataType="string"/>
-    <fields key="fechanacimiento"/>
-  </cruds>
-  <cruds service="//@services.1">
-    <fields key="nombre" dataType="string"/>
-    <fields key="codigo" dataType="string"/>
-    <fields key="descripcion" dataType="text"/>
-  </cruds>
-  <cruds service="//@services.2">
-    <fields key="nombre" dataType="string"/>
-    <fields key="fechainicio"/>
-    <fields key="fechafin"/>
-  </cruds>
-</crudAngularGenerator:Application>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:crudAngularGenerator="http://www.example.org/crudAngularGenerator">
+  <crudAngularGenerator:Application name="ejemplo">
+    <services name="Estudiante" url="admin/estudiantes" filters="/1"/>
+    <services name="Curso" url="admin/cursos" filters="/2 /3"/>
+    <services name="Periodoacademico" url="admin/periodoacademicos"/>
+    <cruds service="/0/@services.0">
+      <fields key="nombre" component="primitive" isRequired="true" dataType="string"/>
+      <fields key="apellido" component="primitive" isRequired="true" dataType="string"/>
+      <fields key="fechanacimiento" component="primitive" dataType="date"/>
+    </cruds>
+    <cruds service="/0/@services.1">
+      <fields key="nombre" component="primitive" isRequired="true" dataType="string"/>
+      <fields key="codigo" component="primitive" isRequired="true" dataType="string"/>
+      <fields key="descripcion" component="primitive" dataType="text"/>
+    </cruds>
+    <cruds service="/0/@services.2">
+      <fields key="nombre" component="primitive" isRequired="true" dataType="string"/>
+      <fields key="fechainicio" component="primitive" isRequired="true" dataType="date"/>
+      <fields key="fechafin" component="primitive" isRequired="true" dataType="date"/>
+    </cruds>
+  </crudAngularGenerator:Application>
+  <crudAngularGenerator:Field component="selectListMultiple"/>
+  <crudAngularGenerator:Field/>
+  <crudAngularGenerator:Field component="autocompleteMultiple"/>
+</xmi:XMI>

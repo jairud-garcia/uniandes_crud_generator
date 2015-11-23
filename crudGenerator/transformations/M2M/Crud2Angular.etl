@@ -32,7 +32,6 @@ operation crud!Application getCruds(services,entities){
 			
 			crud.fields = entity.crud.fields.select(f|f.isKindOf(crud!PrimitiveField)).equivalent();
 		}
-		crud.println();
 		cruds.add(crud);
 	}
 	
@@ -44,8 +43,8 @@ rule Entity2Service
 	transform s : crud!Entity
 	to t : angular!Service {
 	("  Entity2Service: "+s.name).println();
-	t.name = s.name.toLowerCase().firstToUpperCase().replace(' ',''); 
-	t.filters = s.atributes.equivalent();
+	t.name = s.name.toLowerCase().firstToUpperCase().replace(' ','');
+	t.filters = s.crud.fields.select(f|f.isKindOf(crud!AssociationField)).equivalent();
 	t.url = "admin/"+s.name.toLowerCase().replace(' ','')+"s";
 }
 
@@ -56,6 +55,33 @@ rule PrimitiveField2Field
 	("    PrimitiveField2Field: "+s.attribute.name).println();
 	t.key = s.attribute.name.toLowerCase().replace(' ','_');
 	t.dataType=convertDataType(s.attribute.dataType);
+	t.component = angular!UIComponent#primitive;
+	for (val in s.attribute.validations){
+		if(val.validationType.asString() = "required"){
+			t.isRequired = true;
+		}
+	}
+}
+
+@lazy
+rule AssociationField2Field
+	transform s : crud!AssociationField
+	to t : angular!Field{
+	("    AssociationField2Field: "+s.association.sourceName+"->"+s.association.targetName).println();
+	t.component = convertComponent(s.component);
+
+}
+
+operation convertComponent(component){
+	switch(component){
+		case crud!UIComponent#select: return angular!UIComponent#select;
+		case crud!UIComponent#selectList:  return angular!UIComponent#selectList;
+		case crud!UIComponent#radioButton:  return  angular!UIComponent#radioButton;
+		case crud!UIComponent#autocomplete: return  angular!UIComponent#autocomplete;
+		case crud!UIComponent#selectListMultiple: return angular!UIComponent#selectListMultiple;
+		case crud!UIComponent#checkbox: return angular!UIComponent#checkbox;
+		case crud!UIComponent#autocompleteMultiple: return angular!UIComponent#autocompleteMultiple;
+	}
 }
 
 operation convertDataType(dataType){
@@ -65,5 +91,6 @@ operation convertDataType(dataType){
 		case crud!DataType#text:  return  angular!DataType#text;
 		case crud!DataType#decimal: return  angular!DataType#decimal;
 		case crud!DataType#dateTime: return angular!DataType#dateTime;
+		case crud!DataType#date: return angular!DataType#date;
 	}
 }
