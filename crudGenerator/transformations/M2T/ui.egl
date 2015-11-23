@@ -64,24 +64,24 @@ Views-files
 [% TemplateFactory.load('./ui/app/views/main.html.egl').generate('../build/ui/app/views/main.html'); %]
 
 [%
- 	for(view in angularModel!Application.getAllInstances().get(0).cruds){
+ 	for(crud in angularModel!Crud.getAllInstances()){
  		
- 		if(view.allowCreate){
+ 		if(crud.allowCreate){
 	 		var template = TemplateFactory.load('./ui/app/views/view_new.egl');
-	 		template.populate('view', view);
-	 		template.generate('../build/ui/app/views/'+view.service.name.toLowerCase()+'s_new.html');
+	 		template.populate('crud', crud);
+	 		template.generate('../build/ui/app/views/'+crud.service.name.toLowerCase()+'s_new.html');
  		}
  		
- 		if(view.allowRead or view.allowDelete){
-	 		var template = TemplateFactory.load('./ui/app/views/view.egl');
-	 		template.populate('view', view);
-	 		template.generate('../build/ui/app/views/'+view.service.name.toLowerCase()+'s.html');
+ 		if(crud.allowRead or view.allowDelete){
+	 		var template = TemplateFactory.load('./ui/app/views/view.html.egl');
+	 		template.populate('crud', crud);
+	 		template.generate('../build/ui/app/views/'+crud.service.name.toLowerCase()+'s.html');
  		}
  		
- 		if(view.allowUpdate){
+ 		if(crud.allowUpdate){
  			var template = TemplateFactory.load('./ui/app/views/view_edit.egl');
-	 		template.populate('view', view);
-	 		template.generate('../build/ui/app/views/'+view.service.name.toLowerCase()+'s_edit.html');
+	 		template.populate('crud', crud);
+	 		template.generate('../build/ui/app/views/'+crud.service.name.toLowerCase()+'s_edit.html');
  		}
  	}
 %]
