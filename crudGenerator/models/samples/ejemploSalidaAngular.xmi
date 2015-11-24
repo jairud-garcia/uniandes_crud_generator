@@ -25,6 +25,12 @@
         dataType="string"/>
     <fields
         key="fechanacimiento"/>
+    <fields
+        key="curso"
+        isMultiple="true"
+        component="autocompleteMultiple"
+        dataType="relation"
+        relatedService="//@services.1"/>
   </cruds>
   <cruds service="//@services.1">
     <fields

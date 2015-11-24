@@ -43,6 +43,7 @@
     <eLiterals name="decimal" value="3"/>
     <eLiterals name="date" value="4"/>
     <eLiterals name="dateTime" value="5"/>
+    <eLiterals name="relation" value="6"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="UIComponent">
     <eLiterals name="select"/>
