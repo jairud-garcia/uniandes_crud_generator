@@ -8,7 +8,6 @@ rule App2App
 	t.name = s.name; 
 	t.services = s.entities.equivalent();
 	t.cruds = s.getCruds(t.services,s.entities);
-	
 }
 
 operation crud!Application getCruds(services,entities){
@@ -18,8 +17,9 @@ operation crud!Application getCruds(services,entities){
 	//cruds = angular!Application.cruds;
 	
 	for(entity in entities){
-		var crud = new angular!Crud();
+
 		if(not (entity.crud == null)){
+			var crud = new angular!Crud();
 			crud.allowCreate = entity.crud.allowCreate;
 			crud.allowRead = entity.crud.allowRead;
 			crud.allowUpdate = entity.crud.allowUpdate;
@@ -31,8 +31,9 @@ operation crud!Application getCruds(services,entities){
 			}
 			
 			crud.fields = entity.crud.getFields(crud.service);
+			cruds.add(crud);
 		}
-		cruds.add(crud);
+		
 	}
 	
 	return cruds;

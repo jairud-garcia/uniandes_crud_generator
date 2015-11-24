@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<com.mtcflow.model:MTC xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.mtcflow.model="http://com.mtcflow.mtc/1.1">
+<com.mtcflow.model:MTC xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.mtcflow.model="http://com.mtcflow.mtc/1.1" workspace="/">
   <files name="rails services" URI="/build"/>
   <files name="angular ui"/>
   <metamodels name="crud" URI="crudGenerator.ecore"/>
   <metamodels name="railsMM" URI="crudRailsGenerator.ecore" alias="rails"/>
   <metamodels name="angularMM" URI="crudAngularGenerator.ecore"/>
-  <models name="crud" URI="input/ejemploEntrada.xmi" metamodels="//@metamodels.0"/>
+  <models name="crud" URI="input/ejemploEntrada2.xmi" metamodels="//@metamodels.0"/>
   <models name="rails" URI="output/rails.xmi" metamodels="//@metamodels.1"/>
-  <models name="angular" URI="output/angular.xmi" metamodels="//@metamodels.2"/>
+  <models name="angular" URI="angular.xmi" metamodels="//@metamodels.2"/>
   <inputModels model="//@models.0" modelAlias="crud" transformation="//@transformations.0" metamodelAlias="crud"/>
   <inputModels model="//@models.0" modelAlias="crud" transformation="//@transformations.1"/>
   <inputModels model="//@models.1" modelAlias="railsModel" transformation="//@transformations.2" metamodelAlias="railsModel"/>

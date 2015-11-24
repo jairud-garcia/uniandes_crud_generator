@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<crudRailsGenerator:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:crudRailsGenerator="http://www.example.org/crudRailsGenerator" name="ejemplo">
+<crudRailsGenerator:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:crudRailsGenerator="http://www.example.org/crudRailsGenerator" name="Ejemplo completo 2">
   <entities name="Estudiante">
     <attributes name="nombre" dataType="string">
       <validations/>
@@ -17,7 +17,7 @@
     </service>
     <associationAsSource sourceName="estudiantes" targetName="cursos" manySource="true" manyTarget="true" target="//@entities.1"/>
   </entities>
-  <entities name="Curso" associationAsTarget="//@entities.0/@associationAsSource.0 //@entities.2/@associationAsSource.0">
+  <entities name="Curso" associationAsTarget="//@entities.0/@associationAsSource.0 //@entities.2/@associationAsSource.0 //@entities.3/@associationAsSource.0">
     <attributes name="nombre" dataType="string">
       <validations/>
     </attributes>
@@ -32,8 +32,9 @@
       <fields name="codigo" dataType="string"/>
       <fields name="descripcion" dataType="text"/>
       <fields name="periodoacademico_id"/>
-      <fields name="estudiante_ids" dataType="array"/>
+      <fields name="horario_ids" dataType="array"/>
     </service>
+    <associationAsSource sourceName="curso" targetName="horarios" manyTarget="true" target="//@entities.5"/>
   </entities>
   <entities name="Periodoacademico">
     <attributes name="nombre" dataType="string">
@@ -51,5 +52,42 @@
       <fields name="fechafin"/>
     </service>
     <associationAsSource sourceName="periodoacademico" targetName="cursos" manyTarget="true" target="//@entities.1"/>
+  </entities>
+  <entities name="Profesor">
+    <attributes name="nombre" dataType="string">
+      <validations/>
+    </attributes>
+    <attributes name="apellido" dataType="string">
+      <validations/>
+    </attributes>
+    <attributes name="formacion" dataType="text"/>
+    <service/>
+    <associationAsSource sourceName="profesor" targetName="cursos" manyTarget="true" target="//@entities.1"/>
+  </entities>
+  <entities name="Salon">
+    <attributes name="bloque" dataType="string">
+      <validations/>
+      <validations validationType="uniqueness"/>
+    </attributes>
+    <attributes name="capacidad"/>
+    <service name="salon" allowCreate="true" allowRead="true" allowUpdate="true">
+      <fields name="bloque" dataType="string"/>
+      <fields name="bloque" dataType="string"/>
+      <fields name="capacidad"/>
+    </service>
+    <associationAsSource sourceName="salon" targetName="horarios" manyTarget="true" target="//@entities.5"/>
+  </entities>
+  <entities name="Horario" associationAsTarget="//@entities.4/@associationAsSource.0 //@entities.1/@associationAsSource.0">
+    <attributes name="nombre" dataType="string">
+      <validations/>
+      <validations validationType="uniqueness"/>
+    </attributes>
+    <attributes name="salon_id"/>
+    <attributes name="curso_id"/>
+    <service name="horario" allowCreate="true" allowRead="true" allowDelete="true">
+      <fields name="nombre" dataType="string"/>
+      <fields name="salon_id"/>
+      <fields name="curso_id"/>
+    </service>
   </entities>
 </crudRailsGenerator:Application>

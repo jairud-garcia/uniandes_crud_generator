@@ -38,6 +38,7 @@
     <eLiterals name="uniqueness" value="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Association">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceName" unique="false"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetName" unique="false"
@@ -62,13 +63,16 @@
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
         eType="#//Field" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AssociationField" eSuperTypes="#//Field">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="component" eType="#//UIComponent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="association" lowerBound="1"
         eType="#//Association"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Field" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Field" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PrimitiveField" eSuperTypes="#//Field">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" lowerBound="1"
         eType="#//Atribute"/>
