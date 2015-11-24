@@ -63,6 +63,7 @@ operation crud!Crud getFields(service): OrderedSet {
 		var field = new angular!Field;
 		field.key = asc.association.targetName + "_id";
 		field.component = convertComponent(asc.component);
+		field.dataType = angular!DataType#relation;
 		if(asc.association.manyTarget){
 			field.isMultiple = true;
 		}

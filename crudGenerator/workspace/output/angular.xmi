@@ -7,14 +7,14 @@
     <fields key="nombre" component="primitive" isRequired="true" dataType="string" relatedService="//@services.0"/>
     <fields key="apellido" component="primitive" isRequired="true" dataType="string" relatedService="//@services.0"/>
     <fields key="fechanacimiento" component="primitive" dataType="date"/>
-    <fields key="cursos_id" isMultiple="true" component="selectListMultiple" relatedService="//@services.1"/>
+    <fields key="cursos_id" isMultiple="true" component="selectListMultiple" dataType="relation" relatedService="//@services.1"/>
   </cruds>
   <cruds service="//@services.1">
     <fields key="nombre" component="primitive" isRequired="true" dataType="string" relatedService="//@services.1"/>
     <fields key="codigo" component="primitive" isRequired="true" dataType="string"/>
     <fields key="descripcion" component="primitive" dataType="text"/>
-    <fields key="periodoacademico_id" relatedService="//@services.2"/>
-    <fields key="cursos_id" isMultiple="true" component="autocompleteMultiple" relatedService="//@services.1"/>
+    <fields key="periodoacademico_id" dataType="relation" relatedService="//@services.2"/>
+    <fields key="estudiantes_id" isMultiple="true" component="autocompleteMultiple" dataType="relation" relatedService="//@services.0"/>
   </cruds>
   <cruds service="//@services.2">
     <fields key="nombre" component="primitive" isRequired="true" dataType="string" relatedService="//@services.2"/>
