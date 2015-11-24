@@ -30,12 +30,57 @@ operation crud!Application getCruds(services,entities){
 				}
 			}
 			
-			crud.fields = entity.crud.fields.select(f|f.isKindOf(crud!PrimitiveField)).equivalent();
+			crud.fields = entity.crud.getFields(crud.service);
 		}
 		cruds.add(crud);
 	}
 	
 	return cruds;
+}
+
+operation crud!Crud getFields(service): OrderedSet {
+	var fieldsCrud = self.fields.select(f|f.isKindOf(crud!PrimitiveField));
+	var fields : OrderedSet = OrderedSet{};
+	for(f in fieldsCrud){
+		var field = new angular!Field;
+		field.key = f.attribute.name.toLowerCase().replace(' ','_');
+		field.dataType = convertDataType(f.attribute.dataType);
+		field.component = angular!UIComponent#primitive;
+		for (val in f.attribute.validations){
+			if(val.validationType.asString() = "required"){
+				field.isRequired = true;
+			}
+		}
+		if(f.attribute.isFilter){
+			field.relatedService = service;
+			service.filters.add(field);
+		}
+		fields.add(field);
+	}
+	
+	var AssoCrud = self.fields.select(f|f.isKindOf(crud!AssociationField));
+	for(asc in AssoCrud){
+		var field = new angular!Field;
+		field.key = asc.association.targetName + "_id";
+		field.component = convertComponent(asc.component);
+		if(asc.association.manyTarget){
+			field.isMultiple = true;
+		}
+		field.relatedService = asc.association.target.getService();
+		fields.add(field); 
+	}
+	return fields;
+}
+
+operation crud!Entity getService(): angular!Service{
+	var services = angular!Service.getAllInstances();
+	for(service in services){
+		if(service.name = self.name.toLowerCase().firstToUpperCase().replace(' ','')){
+			return service;
+		}
+	}
+	
+	return null;
 }
 
 @lazy
@@ -44,7 +89,7 @@ rule Entity2Service
 	to t : angular!Service {
 	("  Entity2Service: "+s.name).println();
 	t.name = s.name.toLowerCase().firstToUpperCase().replace(' ','');
-	t.filters = s.crud.fields.select(f|f.isKindOf(crud!AssociationField)).equivalent();
+	//t.filters = s.crud.fields.select(f|f.isKindOf(crud!AssociationField)).equivalent();
 	t.url = "admin/"+s.name.toLowerCase().replace(' ','')+"s";
 }
 
@@ -61,6 +106,7 @@ rule PrimitiveField2Field
 			t.isRequired = true;
 		}
 	}
+	
 }
 
 @lazy
