@@ -7,8 +7,10 @@
  # # [%=ctl.service.name.firstToUpperCase()%]sNewCtrl
  # Controller of the uiApp
 ###
+[% var services_list= ctl.fields.select(f|not (f.relatedService==null)).collect(f|f.relatedService.name).asSet().toString().replace('\\[','').replace('\\]','');
+%] 
 angular.module 'uiApp'
-  .controller '[%=ctl.service.name.firstToUpperCase()%]sNewCtrl', ([%=ctl.service.name.firstToUpperCase()%],$window) ->
+  .controller '[%=ctl.service.name.firstToUpperCase()%]sNewCtrl', ($window,[%=services_list%]) ->
     scope=@
     @save = (form) ->
       new_object = new [%=ctl.service.name.firstToUpperCase()%](@object);
