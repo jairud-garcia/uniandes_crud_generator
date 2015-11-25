@@ -1,7 +1,7 @@
 Archivos dinamicos
 Controllers/Services
 [% var date = new Native("java.util.Date")(); %]
-[% var services = railsModel!Entity.allInstances().select(e| not (e.service = null)) ;%]
+[% var services = railsModel!Entity.allInstances().select(e| not (e.service = null)).select(e| not (e.service.name = null)) ;%]
 [% var route_template = TemplateFactory.load('./server/config/routes.rb.egl'); 
 	route_template.populate('services', services);
 	route_template.generate('../build/server/config/routes.rb');
@@ -45,9 +45,6 @@ for(entity in railsModel!Entity.allInstances()){
 }
 for(association in railsModel!Association.allInstances().select(a|a.manySource and a.manyTarget)){
 	var associationName = association.sourceName.firstToUpperCase()+'_'+association.targetName.firstToUpperCase();
-	if(association.sourceName>association.targetName)
-		associationName = association.targetName.firstToUpperCase()+'_'+association.sourceName.firstToUpperCase();
-
 	var template = TemplateFactory.load('./server/db/migrate/association2_migration.rb.egl');
 	template.populate('association', association);
 	template.populate('associationName', associationName);

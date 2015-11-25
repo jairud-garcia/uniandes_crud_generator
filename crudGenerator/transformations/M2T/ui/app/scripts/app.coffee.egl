@@ -25,43 +25,21 @@ angular
       .when '/',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
+        controllerAs: 'controller'[%for(crud in angularModel!Crud.allInstances()){
+	var service_path = crud.service.name.toLowerCase().replace(' ','_')+'s';%]                
+      .when '/[%= service_path%]',
+        templateUrl: 'views/[%= service_path%].html'
+        controller: '[%= service_path.firstToUpperCase()%]Ctrl'
         controllerAs: 'controller'
-      .when '/estudiantes',
-        templateUrl: 'views/estudiantes.html'
-        controller: 'EstudiantesCtrl'
+      .when '/[%= service_path%]/new',
+        templateUrl: 'views/[%= service_path%]_new.html'
+        controller: '[%= service_path.firstToUpperCase()%]NewCtrl'
         controllerAs: 'controller'
-      .when '/estudiantes/new',
-        templateUrl: 'views/estudiantes_new.html'
-        controller: 'EstudiantesNewCtrl'
-        controllerAs: 'controller'
-      .when '/estudiantes/:id/edit',
-        templateUrl: 'views/estudiantes_edit.html'
-        controller: 'EstudiantesEditCtrl'
-        controllerAs: 'controller'
-      .when '/cursos',
-        templateUrl: 'views/cursos.html'
-        controller: 'CursosCtrl'
-        controllerAs: 'controller'
-      .when '/cursos/new',
-        templateUrl: 'views/cursos_new.html'
-        controller: 'CursosNewCtrl'
-        controllerAs: 'controller'
-      .when '/cursos/:id/edit',
-        templateUrl: 'views/cursos_edit.html'
-        controller: 'CursosEditCtrl'
-        controllerAs: 'controller'
-      .when '/periodo_academicos/:id/edit',
-        templateUrl: 'views/periodo_academicos_edit.html'
-        controller: 'PeriodoAcademicosEditCtrl'
-        controllerAs: 'controller'
-      .when '/periodo_academicos/new',
-        templateUrl: 'views/periodo_academicos_new.html'
-        controller: 'PeriodoAcademicosNewCtrl'
-        controllerAs: 'controller'
-      .when '/periodo_academicos',
-        templateUrl: 'views/periodo_academicos.html'
-        controller: 'PeriodoAcademicosCtrl'
-        controllerAs: 'controller'
+      .when '/[%= service_path%]/:id/edit',
+        templateUrl: 'views/[%= service_path%]_edit.html'
+        controller: '[%= service_path.firstToUpperCase()%]EditCtrl'
+        controllerAs: 'controller'[%}%]
+      
       .otherwise
         redirectTo: '/'
 

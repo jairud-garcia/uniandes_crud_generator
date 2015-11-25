@@ -79,7 +79,7 @@ Views-files
  		}
  		
  		if(crud.allowUpdate){
- 			var template = TemplateFactory.load('./ui/app/views/view_edit.egl');
+ 			var template = TemplateFactory.load('./ui/app/views/view_new.egl');
 	 		template.populate('crud', crud);
 	 		template.generate('../build/ui/app/views/'+crud.service.name.toLowerCase()+'s_edit.html');
  		}
@@ -121,3 +121,4 @@ Angular-files
  	}
 %]
 
+[% TemplateFactory.load('./ui/Gemfile.egl').generate('../build/ui/Gemfile'); %]

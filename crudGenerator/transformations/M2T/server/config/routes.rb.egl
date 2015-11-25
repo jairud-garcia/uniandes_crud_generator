@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   [%for(entity in services){%]
-  	[% var fullname = entity.service.name.split('/').select(a| not(a='')) ;%]
+  	[%// ("    routes services "+entity.service.name.toString()).println() %]
+  	[% var fullname = entity.service.name.toString().split('/').select(a| not(a='')) ;%]
 	[%= process(fullname)%]
   [%}%]
 end

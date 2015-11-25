@@ -4,7 +4,7 @@ class [%= entity.name.toLowerCase().firstToUpperCase() %] < ActiveRecord::Base
  	for(association in entity.associationAsSource){
  	  if(association.manyTarget){
  	  	if(association.manySource)
- 	  		out.println("  has_and_belongs_to_many :"+association.targetName);
+ 	  		out.println("  has_and_belongs_to_many :"+association.targetName+ ", join_table: '"+association.sourceName.toLowerCase()+'_'+association.targetName.toLowerCase()+"'");
  	  	else
  	  		out.println("  has_many :"+association.targetName);
  	  }else
@@ -13,7 +13,7 @@ class [%= entity.name.toLowerCase().firstToUpperCase() %] < ActiveRecord::Base
  	for(association in entity.associationAsTarget){
  	  if(association.manySource){
  	  	if(association.manyTarget)
- 	  		out.println("  has_and_belongs_to_many :"+association.sourceName);
+ 	  		out.println("  has_and_belongs_to_many :"+association.sourceName+ ", join_table: '"+association.sourceName.toLowerCase()+'_'+association.targetName.toLowerCase()+"'");
  	  	else
  	  		out.println("  has_many :"+association.sourceName);
  	  }else

@@ -46,8 +46,8 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'development',
-            api: 'https://crud-generator-example.herokuapp.com'
-            //api: 'http://localhost:3000'
+            //api: 'https://crud-generator-example.herokuapp.com'
+            api: 'http://localhost:3000'
           }
         }
       },

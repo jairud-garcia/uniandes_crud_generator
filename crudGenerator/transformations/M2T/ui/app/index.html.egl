@@ -26,16 +26,19 @@
           <div class="container">
             <div class="navbar-header">
 
-              <a class="navbar-brand" href="#/">ui</a>
+              <a class="navbar-brand" href="#/">[%=angularModel!Application.allInstances().get(0).name%]</a>
             </div>
 
             <div class="">
 
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#/">Inicio</a></li>
-                <li ><a href="#/estudiantes">Estudiantes</a></li>
-                <li ><a href="#/cursos">Cursos</a></li>
-                <li ><a href="#/periodo_academicos">Periodo Academicos</a></li>
+              [%for(crud in angularModel!Crud.allInstances()){%]
+                <li >
+                  <a href="#/[%= crud.service.name.toLowerCase().replace(' ','_')%]s">
+                    [%= crud.service.name%]
+                  </a>
+                 </li>
+              [%}%]
               </ul>
             </div>
           </div>
@@ -51,18 +54,6 @@
 
         </div>
       </div>
-
-
-      <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-      <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-         (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-         r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-     </script>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->

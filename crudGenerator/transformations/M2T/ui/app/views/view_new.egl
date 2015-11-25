@@ -23,7 +23,8 @@
     [% case angularModel!DataType#string: %]
     	<input type="text" class="form-control" ng-model='controller.object.[%=field_name%]' [%= required%]/>
     [% case angularModel!DataType#text: %]
-    	<textarea class="form-control" ng-model='controller.object.[%=field_name%]' [%= required%]/>
+    	<textarea class="form-control" ng-model='controller.object.[%=field_name%]' [%= required%]>
+    	</textarea>
     [% case angularModel!DataType#date: %]
     	<uib-datepicker min-date="minDate" show-weeks="true" class="well well-sm" ng-model='controller.object.[%=field_name%]'></uib-datepicker>
     [% case angularModel!DataType#dateTime: %]

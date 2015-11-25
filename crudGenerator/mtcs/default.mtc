@@ -15,7 +15,7 @@
   <transformations xsi:type="com.mtcflow.model:M2MTransformation" name="crud2Rails" URI="Crud2Rails.etl"/>
   <transformations xsi:type="com.mtcflow.model:M2MTransformation" name="crud2Angular" URI="Crud2Angular.etl"/>
   <transformations xsi:type="com.mtcflow.model:M2TTransformation" name="server_rails" URI="server.egl" implementationClass="" target="build/"/>
-  <transformations xsi:type="com.mtcflow.model:M2TTransformation" name="ui_angular" URI="ui.egl" target="build/"/>
+  <transformations xsi:type="com.mtcflow.model:M2TTransformation" name="ui_angular" URI="ui.egl" technology="" target="build/"/>
   <outputModels modelAlias="rails" model="//@models.1" transformation="//@transformations.0" metamodelAlias="rails"/>
   <outputModels modelAlias="angular" model="//@models.2" transformation="//@transformations.1" metamodelAlias="angular"/>
   <outputFiles transformation="//@transformations.2" file="//@files.0"/>

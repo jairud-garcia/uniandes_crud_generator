@@ -19,6 +19,17 @@ post{
  			var t_association = s.equivalent();
  	}
 }
+
+rule App2App
+	transform s : crud!Application
+	to t : rails!Application {
+	("App2App"+s.name).println();
+	t.name = s.name.split(' ').collect(a|a.firstToUpperCase()).toString().replace('\\[','').replace('\\]','').replace(',','').replace(' ','');
+	("App2App "+t.name).println(); 
+	t.entities = s.entities.equivalent();
+}
+
+
 @lazy
 rule Association2Association
 	transform s : crud!Association
@@ -31,13 +42,7 @@ rule Association2Association
  	t.target = entities_by_name.get(s.target.name);
  	t.manyTarget=s.manyTarget;	
 }
-rule App2App
-	transform s : crud!Application
-	to t : rails!Application {
-	("App2App"+s.name).println();
-	t.name = s.name; 
-	t.entities = s.entities.equivalent();
-}
+
 @lazy
 rule Entity2Entity
 	transform s : crud!Entity
@@ -45,13 +50,14 @@ rule Entity2Entity
 	("  Entity2Entity: "+s.name).println();
 	t.name = s.name.toLowerCase().firstToUpperCase().replace(' ',''); 
 	t.attributes = s.atributes.equivalent();
-	t.service = new rails!Service();
 	if(not (s.crud == null)){
+		("    Entity2Service: "+s.crud.name).println();
+		t.service = new rails!Service();
 		t.service.allowCreate = s.crud.allowCreate;
 		t.service.allowRead = s.crud.allowRead;
 		t.service.allowUpdate = s.crud.allowUpdate;
 		t.service.allowDelete = s.crud.allowDelete;
-		t.service.name = s.name.toLowerCase().replace(' ','_');
+		t.service.name = "admin/"+s.name.toLowerCase().replace(' ','_')+'s';
 		t.service.fields = s.crud.fields.select(f|f.isKindOf(crud!PrimitiveField)).equivalent();
 		for(associationField in s.crud.fields.select(f|f.isKindOf(crud!AssociationField))){
 			("    associationField "+associationField.association.source.name+" / "+associationField.association.target.name).println();

@@ -3,15 +3,16 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="crudGenerator" nsURI="http://www.example.org/crudGenerator"
     nsPrefix="crudGenerator">
   <eClassifiers xsi:type="ecore:EClass" name="Application">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="entities" ordered="false"
-        upperBound="-1" eType="#//Entity" containment="true"/>
+        lowerBound="1" upperBound="-1" eType="#//Entity" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Entity">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="atributes" upperBound="-1"
-        eType="#//Atribute" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="crud" eType="#//Crud" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="atributes" lowerBound="1"
+        upperBound="-1" eType="#//Atribute" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="crud" lowerBound="1" eType="#//Crud"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="associationAsTarget" upperBound="-1"
         eType="#//Association" eOpposite="#//Association/target"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="associationAsSource" upperBound="-1"
@@ -40,9 +41,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Association">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceName" unique="false"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetName" unique="false"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="manySource" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="manyTarget" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
@@ -61,17 +62,18 @@
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="allowDelete" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
-        eType="#//Field" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fields" lowerBound="1"
+        upperBound="-1" eType="#//Field" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AssociationField" eSuperTypes="#//Field">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="component" eType="#//UIComponent"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="component" lowerBound="1"
+        eType="#//UIComponent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="association" lowerBound="1"
         eType="#//Association"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Field" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PrimitiveField" eSuperTypes="#//Field">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" lowerBound="1"
@@ -87,6 +89,7 @@
     <eLiterals name="autocompleteMultiple" value="6"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Validation">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationType" eType="#//ValidationType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationType" lowerBound="1"
+        eType="#//ValidationType"/>
   </eClassifiers>
 </ecore:EPackage>

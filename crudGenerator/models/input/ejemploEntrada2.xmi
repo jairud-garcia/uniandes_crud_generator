@@ -26,15 +26,19 @@
     <crud name="Administrar Estudiantes">
       <fields
           xsi:type="crudGenerator:PrimitiveField"
+          name="nombre"
           attribute="//@entities.0/@atributes.0"/>
       <fields
           xsi:type="crudGenerator:PrimitiveField"
+          name="apellido"
           attribute="//@entities.0/@atributes.1"/>
       <fields
           xsi:type="crudGenerator:PrimitiveField"
+          name="Fecha Nacimiento"
           attribute="//@entities.0/@atributes.2"/>
       <fields
           xsi:type="crudGenerator:AssociationField"
+          name="cursos"
           component="selectListMultiple"
           association="//@entities.0/@associationAsSource.0"/>
     </crud>
@@ -119,12 +123,15 @@
     <crud name="Administrar periodos acad&#xe9;micos">
       <fields
           xsi:type="crudGenerator:PrimitiveField"
+          name="nombre"
           attribute="//@entities.2/@atributes.0"/>
       <fields
           xsi:type="crudGenerator:PrimitiveField"
+          name="Fecha Inicio"
           attribute="//@entities.2/@atributes.1"/>
       <fields
           xsi:type="crudGenerator:PrimitiveField"
+          name="Fecha Fin"
           attribute="//@entities.2/@atributes.2"/>
     </crud>
   </entities>
@@ -144,6 +151,20 @@
         name="formacion"
         dataType="text"
         isFilter="false"/>
+    <crud name="Administraci&#xf3;n de Profesores">
+      <fields
+          xsi:type="crudGenerator:PrimitiveField"
+          name="Nombre"
+          attribute="//@entities.3/@atributes.0"/>
+      <fields
+          xsi:type="crudGenerator:PrimitiveField"
+          name="Apellido"
+          attribute="//@entities.3/@atributes.1"/>
+      <fields
+          xsi:type="crudGenerator:PrimitiveField"
+          name="Formaci&#xf3;n"
+          attribute="//@entities.3/@atributes.2"/>
+    </crud>
     <associationAsSource
         name="titular/cursos"
         sourceName="profesor"
@@ -168,12 +189,11 @@
         name="Administrar Salones">
       <fields
           xsi:type="crudGenerator:PrimitiveField"
+          name="Bloque"
           attribute="//@entities.4/@atributes.0"/>
       <fields
           xsi:type="crudGenerator:PrimitiveField"
-          attribute="//@entities.4/@atributes.0"/>
-      <fields
-          xsi:type="crudGenerator:PrimitiveField"
+          name="Capacidad"
           attribute="//@entities.4/@atributes.1"/>
     </crud>
   </entities>
@@ -190,6 +210,7 @@
         name="Administrar horarios">
       <fields
           xsi:type="crudGenerator:PrimitiveField"
+          name="Nombre"
           attribute="//@entities.5/@atributes.0"/>
       <fields
           xsi:type="crudGenerator:AssociationField"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<crudRailsGenerator:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:crudRailsGenerator="http://www.example.org/crudRailsGenerator" name="Ejemplo completo 2">
+<crudRailsGenerator:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:crudRailsGenerator="http://www.example.org/crudRailsGenerator" name="EjemploCompleto2">
   <entities name="Estudiante">
     <attributes name="nombre" dataType="string">
       <validations/>
@@ -9,7 +9,7 @@
       <validations/>
     </attributes>
     <attributes name="fechanacimiento"/>
-    <service name="estudiante" allowCreate="true" allowRead="true" allowUpdate="true" allowDelete="true">
+    <service name="admin/estudiantes" allowCreate="true" allowRead="true" allowUpdate="true" allowDelete="true">
       <fields name="nombre" dataType="string"/>
       <fields name="apellido" dataType="string"/>
       <fields name="fechanacimiento"/>
@@ -27,7 +27,7 @@
     </attributes>
     <attributes name="descripcion" dataType="text"/>
     <attributes name="periodoacademico_id"/>
-    <service name="curso" allowCreate="true" allowRead="true" allowUpdate="true" allowDelete="true">
+    <service name="admin/cursos" allowCreate="true" allowRead="true" allowUpdate="true" allowDelete="true">
       <fields name="nombre" dataType="string"/>
       <fields name="codigo" dataType="string"/>
       <fields name="descripcion" dataType="text"/>
@@ -46,7 +46,7 @@
     <attributes name="fechafin">
       <validations/>
     </attributes>
-    <service name="periodoacademico" allowCreate="true" allowRead="true" allowUpdate="true" allowDelete="true">
+    <service name="admin/periodoacademicos" allowCreate="true" allowRead="true" allowUpdate="true" allowDelete="true">
       <fields name="nombre" dataType="string"/>
       <fields name="fechainicio"/>
       <fields name="fechafin"/>
@@ -61,7 +61,11 @@
       <validations/>
     </attributes>
     <attributes name="formacion" dataType="text"/>
-    <service/>
+    <service name="admin/profesors" allowCreate="true" allowRead="true" allowUpdate="true" allowDelete="true">
+      <fields name="nombre" dataType="string"/>
+      <fields name="apellido" dataType="string"/>
+      <fields name="formacion" dataType="text"/>
+    </service>
     <associationAsSource sourceName="profesor" targetName="cursos" manyTarget="true" target="//@entities.1"/>
   </entities>
   <entities name="Salon">
@@ -70,8 +74,7 @@
       <validations validationType="uniqueness"/>
     </attributes>
     <attributes name="capacidad"/>
-    <service name="salon" allowCreate="true" allowRead="true" allowUpdate="true">
-      <fields name="bloque" dataType="string"/>
+    <service name="admin/salons" allowCreate="true" allowRead="true" allowUpdate="true">
       <fields name="bloque" dataType="string"/>
       <fields name="capacidad"/>
     </service>
@@ -84,7 +87,7 @@
     </attributes>
     <attributes name="salon_id"/>
     <attributes name="curso_id"/>
-    <service name="horario" allowCreate="true" allowRead="true" allowDelete="true">
+    <service name="admin/horarios" allowCreate="true" allowRead="true" allowDelete="true">
       <fields name="nombre" dataType="string"/>
       <fields name="salon_id"/>
       <fields name="curso_id"/>

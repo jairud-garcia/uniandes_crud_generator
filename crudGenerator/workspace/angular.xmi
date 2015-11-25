@@ -3,9 +3,9 @@
   <services name="Estudiante" url="admin/estudiantes" filters="//@cruds.0/@fields.0 //@cruds.0/@fields.1"/>
   <services name="Curso" url="admin/cursos" filters="//@cruds.1/@fields.0"/>
   <services name="Periodoacademico" url="admin/periodoacademicos" filters="//@cruds.2/@fields.0"/>
-  <services name="Profesor" url="admin/profesors"/>
-  <services name="Salon" url="admin/salons" filters="//@cruds.3/@fields.0 //@cruds.3/@fields.1"/>
-  <services name="Horario" url="admin/horarios" filters="//@cruds.4/@fields.0"/>
+  <services name="Profesor" url="admin/profesors" filters="//@cruds.3/@fields.0 //@cruds.3/@fields.1"/>
+  <services name="Salon" url="admin/salons" filters="//@cruds.4/@fields.0"/>
+  <services name="Horario" url="admin/horarios" filters="//@cruds.5/@fields.0"/>
   <cruds service="//@services.0">
     <fields key="nombre" component="primitive" isRequired="true" dataType="string" relatedService="//@services.0"/>
     <fields key="apellido" component="primitive" isRequired="true" dataType="string" relatedService="//@services.0"/>
@@ -24,8 +24,12 @@
     <fields key="fechainicio" component="primitive" isRequired="true" dataType="date"/>
     <fields key="fechafin" component="primitive" isRequired="true" dataType="date"/>
   </cruds>
+  <cruds service="//@services.3">
+    <fields key="nombre" component="primitive" isRequired="true" dataType="string" relatedService="//@services.3"/>
+    <fields key="apellido" component="primitive" isRequired="true" dataType="string" relatedService="//@services.3"/>
+    <fields key="formacion" component="primitive" dataType="text"/>
+  </cruds>
   <cruds allowDelete="false" service="//@services.4">
-    <fields key="bloque" component="primitive" isRequired="true" dataType="string" relatedService="//@services.4"/>
     <fields key="bloque" component="primitive" isRequired="true" dataType="string" relatedService="//@services.4"/>
     <fields key="capacidad" component="primitive"/>
   </cruds>
