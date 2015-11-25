@@ -12,6 +12,12 @@
 angular.module 'uiApp'
   .controller '[%=ctl.service.name.firstToUpperCase()%]sNewCtrl', ($window,[%=services_list%]) ->
     scope=@
+    [% for(externalField in ctl.fields.select(f|not (f.relatedService==null) and 
+    	not (f.component = angularModel!UIComponent#autocomplete or  f.component = angularModel!UIComponent#autocompleteMultiple)   and 
+    	not (f.relatedService == ctl.service)  )){ 
+    %]
+    @[%=externalField.relatedService.name.toLowerCase().replace(' ','_') %]s=[%=externalField.relatedService.name %].query()
+    [%}%]
     @save = (form) ->
       new_object = new [%=ctl.service.name.firstToUpperCase()%](@object);
       new_object.$save().then(->

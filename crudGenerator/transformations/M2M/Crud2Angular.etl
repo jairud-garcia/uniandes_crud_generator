@@ -62,13 +62,30 @@ operation crud!Crud getFields(service): OrderedSet {
 	var AssoCrud = self.fields.select(f|f.isKindOf(crud!AssociationField));
 	for(asc in AssoCrud){
 		var field = new angular!Field;
-		field.key = asc.association.targetName + "_id";
+		if(asc.association.source==self.eContainer()){
+			field.key = asc.association.targetName + "_id";
+			if(asc.association.manyTarget){
+				field.isMultiple = true;
+				if(asc.association.targetName.endsWith('s'))
+					field.key = asc.association.targetName.substring(0,asc.association.targetName.length-1) + "_ids";
+				else
+					field.key = asc.association.targetName + "_ids";
+			}
+			field.relatedService = asc.association.target.getService();
+		}else{
+			field.key = asc.association.sourceName + "_id";
+			if(asc.association.manySource){
+				field.isMultiple = true;
+				if(asc.association.sourceName.endsWith('s'))
+					field.key = asc.association.sourceName.substring(0,asc.association.sourceName.length-1) + "_ids";
+				else
+					field.key = asc.association.sourceName + "_ids";
+			}
+			field.relatedService = asc.association.source.getService();
+		}
 		field.component = convertComponent(asc.component);
 		field.dataType = angular!DataType#relation;
-		if(asc.association.manyTarget){
-			field.isMultiple = true;
-		}
-		field.relatedService = asc.association.target.getService();
+		
 		fields.add(field); 
 	}
 	return fields;

@@ -5,43 +5,109 @@
   [% for(field in crud.fields){ %]
   [%var field_name = field.key.toLowerCase().replace(' ','_');%]
   <div class="form-group">
-    <label for="[%=field_name%]">
-    [%
-    var required='';  
-    if(field.isRequired ){ %]
-    	*
-    [%
-    	var required = 'required';
-    }%]     
-      [%=field.key.firstToUpperCase()%]
-    </label>
     [% switch(field.dataType) {
        case angularModel!DataType#int: %]
+           <label for="[%=field_name%]">
+		    [%
+		    var required='';  
+		    if(field.isRequired ){ %]
+		    	*
+		    [%
+		    	var required = 'required';
+		    }%]     
+		      [%=field.key.firstToUpperCase()%]
+		    </label>
     	<input type="number" class="form-control" ng-model='controller.object.[%=field_name%]' [%= required%]/>
     [% case angularModel!DataType#decimal: %]
+           <label for="[%=field_name%]">
+		    [%
+		    var required='';  
+		    if(field.isRequired ){ %]
+		    	*
+		    [%
+		    	var required = 'required';
+		    }%]     
+		      [%=field.key.firstToUpperCase()%]
+		    </label>
     	<input type="number" class="form-control" ng-model='controller.object.[%=field_name%]' [%= required%]/>    	
     [% case angularModel!DataType#string: %]
+           <label for="[%=field_name%]">
+		    [%
+		    var required='';  
+		    if(field.isRequired ){ %]
+		    	*
+		    [%
+		    	var required = 'required';
+		    }%]     
+		      [%=field.key.firstToUpperCase()%]
+		    </label>
     	<input type="text" class="form-control" ng-model='controller.object.[%=field_name%]' [%= required%]/>
     [% case angularModel!DataType#text: %]
+           <label for="[%=field_name%]">
+		    [%
+		    var required='';  
+		    if(field.isRequired ){ %]
+		    	*
+		    [%
+		    	var required = 'required';
+		    }%]     
+		      [%=field.key.firstToUpperCase()%]
+		    </label>
     	<textarea class="form-control" ng-model='controller.object.[%=field_name%]' [%= required%]>
     	</textarea>
     [% case angularModel!DataType#date: %]
+           <label for="[%=field_name%]">
+		    [%
+		    var required='';  
+		    if(field.isRequired ){ %]
+		    	*
+		    [%
+		    	var required = 'required';
+		    }%]     
+		      [%=field.key.firstToUpperCase()%]
+		    </label>
     	<uib-datepicker min-date="minDate" show-weeks="true" class="well well-sm" ng-model='controller.object.[%=field_name%]'></uib-datepicker>
     [% case angularModel!DataType#dateTime: %]
+           <label for="[%=field_name%]">
+		    [%
+		    var required='';  
+		    if(field.isRequired ){ %]
+		    	*
+		    [%
+		    	var required = 'required';
+		    }%]     
+		      [%=field.key.firstToUpperCase()%]
+		    </label>
     	<input type="datetime" class="form-control" ng-model='controller.object.[%=field_name%]' [%= required%]>
-    [% case angularModel!DataType#relation:
-    	var concat_filters= crud.service.filters.collect(a| 'item.'+a.key).toString().replace('\\[','').
+    [% case angularModel!DataType#relation: %]
+    
+           <label for="[%=field_name%]">
+		    [%
+		    var required='';  
+		    if(field.isRequired ){ %]
+		    	*
+		    [%
+		    	var required = 'required';
+		    }%]
+		    [% var label = field.relatedService.name;
+		    	if(field.isMultiple)
+		    		label = label+'s';
+		    %]     
+		      [%=label%]
+		    </label>
+    [%	var concat_filters= crud.service.filters.collect(a| 'item.'+a.key).toString().replace('\\[','').
     	  	replace('\\]','').replace(',',"+''+"); 
     	switch(field.component) { 
           case angularModel!UIComponent#select:%]
-    	  <select ng-model="controller.object.[%= field_name%]_id" [%= required%]>
-	        <option ng-repeat='[%= field_name%] in controller.[%= field_name%]s' value="{{[%= field_name%].id}}">
+          
+    	  <select ng-model="controller.object.[%= field_name%]" [%= required%] >
+	        <option ng-repeat='item in controller.[%= field.relatedService.name.toLowerCase()%]s' value="{{item.id}}">
 	          {{[%= concat_filters %]}}
 	        </option>
 	      </select>
     	[%case angularModel!UIComponent#selectList:%]
-    	  <select ng-model="controller.object.[%= field_name%]_id" [%= required%] size='5'>
-	        <option ng-repeat='[%= field_name%] in controller.[%= field_name%]s' value="{{[%= field_name%].id}}">
+    	  <select ng-model="controller.object.[%= field_name%]" [%= required%] size='5'>
+	        <option ng-repeat='item in controller.[%= field.relatedService.name.toLowerCase()%]s' value="{{item.id}}">
 	          {{[%= concat_filters %]}}
 	        </option>
 	      </select>
@@ -51,10 +117,10 @@
     	  <input type="text" ng-model="controller.object.selected_[%= field_name%]"
 		    uib-typeahead="[%= field_name%] as ([%= concat_filters%]) for item in controller.get_[%= field_name%]s($viewValue)"
 		    typeahead-min-length='3' typeahead-wait-ms='200'
-		    typeahead-on-select='controller.object.[%= field_name%]_id = $model.id' class="form-control">
+		    typeahead-on-select='controller.object.[%= field_name%] = $model.id' class="form-control">
     	[%case angularModel!UIComponent#selectListMultiple:%]
-	      <select size="5" multiple ng-multiple="true" ng-model="controller.object.[%= field_name%]_ids">
-		    <option ng-repeat='[%= field_name%] in controller.[%= field_name%]s' ng-selected="controller.object.[%= field_name%]_ids.indexOf(parseInt([%= field_name%].id)) != -1" value="{{[%= field_name%].id}}">
+	      <select size="5" multiple ng-multiple="true" ng-model="controller.object.[%= field_name%]">
+		    <option ng-repeat='item in controller.[%= field.relatedService.name.toLowerCase()%]s' ng-selected="controller.object.[%= field_name%].indexOf(parseInt([%= field_name%].id)) != -1" value="{{item.id}}">
 		      {{[%= concat_filters %]}}
 		    </option>
 		  </select>    	
@@ -62,12 +128,12 @@
     	
     	[%case angularModel!UIComponent#autocompleteMultiple:%] 
     	  <input type="text" ng-model="controller.object.selected_[%= field_name%]"
-		    uib-typeahead="[%= field_name%] as ([%= concat_filters%]) for item in controller.get_[%= field_name%]s($viewValue)"
+		    uib-typeahead="[%= field_name%] as ([%= concat_filters%]) for item in controller.get_[%= field.relatedService.name.toLowerCase()%]s($viewValue)"
 		    typeahead-min-length='3' typeahead-wait-ms='200'
-		    typeahead-on-select='controller.add_[%= field_name%]($item, $model, $label)' class="form-control">
+		    typeahead-on-select='controller.add_[%= field.relatedService.name.toLowerCase()%]($item, $model, $label)' class="form-control">
 	      <ol>
-		    <li ng-repeat="item in controller.object.[%= field_name%]s">
-		        <a ng-click="controller.delete_[%= field_name%](item)" class="btn btn-xs btn-danger">
+		    <li ng-repeat="item in controller.object.[%= field.relatedService.name.toLowerCase()%]s">
+		        <a ng-click="controller.delete_[%= field.relatedService.name.toLowerCase()%](item)" class="btn btn-xs btn-danger">
 		        X
 		        </a>
 		        {{[%= concat_filters %]}}
