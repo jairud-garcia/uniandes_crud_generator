@@ -44,7 +44,7 @@
     </tbody>
   </table>
   <bgf-pagination
-    collection="controller.collection" page='controller.page' per-page='10'   url="controller.url" reload-page="controller.reloadPage">
+    collection="controller.collection" page='controller.page' per-page='10' url="controller.url" reload-page="controller.reloadPage">
   </bgf-pagination>
   [%}%]
 </div>

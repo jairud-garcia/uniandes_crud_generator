@@ -20,11 +20,11 @@ angular.module 'uiApp'
     [%}%]
     @object = [%=ctl.service.name.firstToUpperCase()%].get({id: $routeParams.id},->
     [% for(field in ctl.fields.select(f|not (f.relatedService==null) and f.isMultiple and not (f.component = angularModel!UIComponent#primitive))){ %]
-      scope.object.[%=field.relatedService.name.toLowerCase() %]s=[%=field.relatedService.name %].query({'q[id_in][]': scope.object.[%=field.key %]})
+      scope.object.[%=field.relatedService.name.toLowerCase() %]s=[%=field.relatedService.name %].query({'q[id_in][]': scope.object.[%=field.key.toLowerCase() %]})
  
     [%}%]
     [% for(field in ctl.fields.select(f|not (f.relatedService==null) and not f.isMultiple and not (f.component = angularModel!UIComponent#primitive))){ %]
-      scope.object.[%=field.key %] = ''+scope.object.[%=field.key %]
+      scope.object.[%=field.key.toLowerCase() %] = ''+scope.object.[%=field.key.toLowerCase() %]
     [%}%]
     )
     @save = (form) ->
@@ -67,6 +67,15 @@ angular.module 'uiApp'
       scope.object.[%=field.relatedService.name.toLowerCase()%]s=_.without(scope.object.[%=field.relatedService.name.toLowerCase()%]s, item)
       scope.object.[%=field_name%]=_.map(scope.object.[%=field.relatedService.name.toLowerCase()%], (e)->
           e.id) 
+    [%}%]
+    [% for(field in ctl.fields.select(f|not (f.relatedService==null) and (f.component = angularModel!UIComponent#autocomplete))){ 
+      var field_name = field.key.toLowerCase().replace(' ','_');
+    %]
+    @get_[%= field.relatedService.name.toLowerCase()%]=(query)->
+      [%=field.relatedService.name%].query({'q[[%=field.relatedService.filters.collect(a| a.key.trim()).toString().replace('\\[','').replace('\\]','').replace(' ','').replace(',',"_or_")%]_cont]': query}).
+      $promise.then((response) ->
+        return response;
+      ) 
     [%}%]
     return
 
