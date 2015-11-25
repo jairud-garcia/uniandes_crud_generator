@@ -27,12 +27,15 @@
     </attributes>
     <attributes name="descripcion" dataType="text"/>
     <attributes name="periodoacademico_id"/>
+    <attributes name="profesor_id"/>
     <service name="admin/cursos" allowCreate="true" allowRead="true" allowUpdate="true" allowDelete="true">
       <fields name="nombre" dataType="string"/>
       <fields name="codigo" dataType="string"/>
       <fields name="descripcion" dataType="text"/>
       <fields name="periodoacademico_id"/>
       <fields name="horario_ids" dataType="array"/>
+      <fields name="estudiante_ids" dataType="array"/>
+      <fields name="profesor_id"/>
     </service>
     <associationAsSource sourceName="curso" targetName="horarios" manyTarget="true" target="//@entities.5"/>
   </entities>
@@ -87,7 +90,7 @@
     </attributes>
     <attributes name="salon_id"/>
     <attributes name="curso_id"/>
-    <service name="admin/horarios" allowCreate="true" allowRead="true" allowDelete="true">
+    <service name="admin/horarios" allowCreate="true" allowRead="true" allowUpdate="true" allowDelete="true">
       <fields name="nombre" dataType="string"/>
       <fields name="salon_id"/>
       <fields name="curso_id"/>

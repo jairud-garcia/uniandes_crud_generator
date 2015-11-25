@@ -18,6 +18,8 @@
     <fields key="descripcion" component="primitive" dataType="text"/>
     <fields key="periodoacademico_id" dataType="relation" relatedService="//@services.2"/>
     <fields key="horario_ids" isMultiple="true" component="checkbox" dataType="relation" relatedService="//@services.5"/>
+    <fields key="estudiante_ids" isMultiple="true" component="autocompleteMultiple" dataType="relation" relatedService="//@services.0"/>
+    <fields key="profesor_id" component="autocomplete" dataType="relation" relatedService="//@services.3"/>
   </cruds>
   <cruds service="//@services.2">
     <fields key="nombre" component="primitive" isRequired="true" dataType="string" relatedService="//@services.2"/>
@@ -33,7 +35,7 @@
     <fields key="bloque" component="primitive" isRequired="true" dataType="string" relatedService="//@services.4"/>
     <fields key="capacidad" component="primitive"/>
   </cruds>
-  <cruds allowUpdate="false" service="//@services.5">
+  <cruds service="//@services.5">
     <fields key="nombre" component="primitive" isRequired="true" dataType="string" relatedService="//@services.5"/>
     <fields key="salon_id" component="selectList" dataType="relation" relatedService="//@services.4"/>
     <fields key="curso_id" component="radioButton" dataType="relation" relatedService="//@services.1"/>

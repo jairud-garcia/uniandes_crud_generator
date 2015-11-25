@@ -13,6 +13,7 @@
     	</a>
     [%}%]
   </div>
+  [%if(crud.allowRead){%]
   <table class="table table-striped table-hover">
     <thead>
       <tr>
@@ -45,4 +46,5 @@
   <bgf-pagination
     collection="controller.collection" page='controller.page' per-page='10'   url="controller.url" reload-page="controller.reloadPage">
   </bgf-pagination>
+  [%}%]
 </div>

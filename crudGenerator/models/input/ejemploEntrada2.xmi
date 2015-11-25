@@ -92,6 +92,16 @@
           name="Horarios"
           component="checkbox"
           association="//@entities.5/@associationAsSource.1"/>
+      <fields
+          xsi:type="crudGenerator:AssociationField"
+          name="Estudiantes"
+          component="autocompleteMultiple"
+          association="//@entities.0/@associationAsSource.0"/>
+      <fields
+          xsi:type="crudGenerator:AssociationField"
+          name="titular"
+          component="autocomplete"
+          association="//@entities.3/@associationAsSource.0"/>
     </crud>
     <associationAsSource
         name="cursos/periodoacademico"
@@ -206,8 +216,7 @@
       <validations
           validationType="uniqueness"/>
     </atributes>
-    <crud allowUpdate="false"
-        name="Administrar horarios">
+    <crud name="Administrar horarios">
       <fields
           xsi:type="crudGenerator:PrimitiveField"
           name="Nombre"

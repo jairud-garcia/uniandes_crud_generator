@@ -95,8 +95,8 @@
 		    %]     
 		      [%=label%]
 		    </label>
-    [%	var concat_filters= crud.service.filters.collect(a| 'item.'+a.key).toString().replace('\\[','').
-    	  	replace('\\]','').replace(',',"+''+"); 
+    [%	var concat_filters= field.relatedService.filters.collect(a| 'item.'+a.key).toString().replace('\\[','').
+    	  	replace('\\]','').replace(',',"+' '+"); 
     	switch(field.component) { 
           case angularModel!UIComponent#select:%]
           
@@ -112,28 +112,44 @@
 	        </option>
 	      </select>
     	[%case angularModel!UIComponent#radioButton:%]
+    	<ol>
+	        <li ng-repeat="item in controller.[%= field.relatedService.name.toLowerCase()%]s">
+	            <label>
+	                <input type="radio"  ng-model="controller.object.[%= field_name%]" [%= required%] name="[%= field_name%]" value="{{item.id}}" />
+	                {{[%= concat_filters %]}}
+	            </label>
+	        </li>
+	    </ol>
     	
     	[%case angularModel!UIComponent#autocomplete:%]
     	  <input type="text" ng-model="controller.object.selected_[%= field_name%]"
 		    uib-typeahead="[%= field_name%] as ([%= concat_filters%]) for item in controller.get_[%= field_name%]s($viewValue)"
 		    typeahead-min-length='3' typeahead-wait-ms='200'
 		    typeahead-on-select='controller.object.[%= field_name%] = $model.id' class="form-control">
+		    
     	[%case angularModel!UIComponent#selectListMultiple:%]
-	      <select size="5" multiple ng-multiple="true" ng-model="controller.object.[%= field_name%]">
-		    <option ng-repeat='item in controller.[%= field.relatedService.name.toLowerCase()%]s' ng-selected="controller.object.[%= field_name%].indexOf(parseInt([%= field_name%].id)) != -1" value="{{item.id}}">
-		      {{[%= concat_filters %]}}
-		    </option>
-		  </select>    	
+  			<select size="5" multiple ng-multiple="true" ng-model="controller.object.[%= field_name%]" 
+	          ng-options="item.id as [%= concat_filters %] for item in controller.[%= field.relatedService.name.toLowerCase()%]s " >
+	        </select> 	
     	[%case angularModel!UIComponent#checkbox:%]
-    	
+    	<ol>
+	        <li ng-repeat="item in controller.[%= field.relatedService.name.toLowerCase()%]s">
+	            <label>
+	                <input type="checkbox"  name="[%= field_name%][]" value="{{item.id}}" 
+	                	ng-checked="controller.object.[%= field_name%].indexOf(item.id) > -1"
+	                	ng-click="controller.toggleSelectionCheckbox[%= field_name%](item)" />
+	            {{[%= concat_filters %]}}
+	            </label>
+	        </li>
+	    </ol>
     	[%case angularModel!UIComponent#autocompleteMultiple:%] 
-    	  <input type="text" ng-model="controller.object.selected_[%= field_name%]"
+    	  <input type="text" ng-model="controller.object.selected_[%=field.relatedService.name.toLowerCase()%]"
 		    uib-typeahead="[%= field_name%] as ([%= concat_filters%]) for item in controller.get_[%= field.relatedService.name.toLowerCase()%]s($viewValue)"
 		    typeahead-min-length='3' typeahead-wait-ms='200'
 		    typeahead-on-select='controller.add_[%= field.relatedService.name.toLowerCase()%]($item, $model, $label)' class="form-control">
 	      <ol>
 		    <li ng-repeat="item in controller.object.[%= field.relatedService.name.toLowerCase()%]s">
-		        <a ng-click="controller.delete_[%= field.relatedService.name.toLowerCase()%](item)" class="btn btn-xs btn-danger">
+		        <a ng-click="controller.delete_[%=field.relatedService.name.toLowerCase()%](item)" class="btn btn-xs btn-danger">
 		        X
 		        </a>
 		        {{[%= concat_filters %]}}

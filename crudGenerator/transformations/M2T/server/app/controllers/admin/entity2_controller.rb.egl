@@ -11,7 +11,10 @@ class Admin::[%= entity.name.toLowerCase.firstToUpperCase() %]sController < Appl
 
   def show
     @object = [%= entity.name %].find(params[:id])
-    render json: @object.to_json(:methods=>:estudiante_ids)
+    [% var includes = entity.associationAsSource.select(a|a.manyTarget).collect(a|":"+a.targetName.substring(0,a.targetName.length()-1)+"_ids");
+       includes.addAll(entity.associationAsTarget.select(a|a.manySource).collect(a|":"+a.sourceName.substring(0,a.sourceName.length()-1)+"_ids"));
+    %]
+    render json: @object.to_json(:methods=>[%=includes%])
   end
   [%}%]
   [% if(entity.service.allowCreate) {%]
