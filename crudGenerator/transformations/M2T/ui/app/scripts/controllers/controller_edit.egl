@@ -21,7 +21,9 @@ angular.module 'uiApp'
     @object = [%=ctl.service.name.firstToUpperCase()%].get({id: $routeParams.id},->
     [% for(field in ctl.fields.select(f|not (f.relatedService==null) and f.isMultiple and not (f.component = angularModel!UIComponent#primitive))){ %]
       scope.object.[%=field.relatedService.name.toLowerCase() %]s=[%=field.relatedService.name %].query({'q[id_in][]': scope.object.[%=field.key.toLowerCase() %]})
- 
+    [%}%]
+    [% for(field in ctl.fields.select(f|not (f.relatedService==null) and not f.isMultiple and not (f.component = angularModel!UIComponent#primitive))){ %]
+      scope.object.[%=field.relatedService.name.toLowerCase() %]=[%=field.relatedService.name %].get({id: scope.object.[%=field.key.toLowerCase() %]})
     [%}%]
     [% for(field in ctl.fields.select(f|not (f.relatedService==null) and not f.isMultiple and not (f.component = angularModel!UIComponent#primitive))){ %]
       scope.object.[%=field.key.toLowerCase() %] = ''+scope.object.[%=field.key.toLowerCase() %]

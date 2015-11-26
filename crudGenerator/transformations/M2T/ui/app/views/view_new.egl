@@ -122,9 +122,12 @@
 	    </ol>
     	
     	[%case angularModel!UIComponent#autocomplete:%]
-    	    <input type="text" ng-model="controller.object.[%= field_name%]"
-		    uib-typeahead="item.id as ([%= concat_filters%]) for item in controller.get_[%= field.relatedService.name.toLowerCase()%]($viewValue)"
-		    typeahead-min-length='3' typeahead-wait-ms='200' class="form-control">
+    		<span ng-repeat="item in [controller.object.[%= field.relatedService.name.toLowerCase()%]]">{{[%= concat_filters%]}}</span>
+    	    <input type="text" ng-model="controller.object.[%= field.relatedService.name.toLowerCase()%]_tmp"
+		    uib-typeahead="item as ([%= concat_filters%]) for item in controller.get_[%= field.relatedService.name.toLowerCase()%]($viewValue)"
+		    typeahead-min-length='3' typeahead-wait-ms='200' class="form-control" 
+		    typeahead-on-select="controller.object.[%= field_name%]=$item.id; controller.object.[%= field.relatedService.name.toLowerCase()%]=$item">
+		    
 		    
     	[%case angularModel!UIComponent#selectListMultiple:%]
   			<select size="5" multiple ng-multiple="true" ng-model="controller.object.[%= field_name%]" 

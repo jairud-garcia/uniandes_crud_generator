@@ -1,6 +1,6 @@
 Config-file
 [% "ConfigFiles".println() ;%]
-[% TemplateFactory.load('./ui/.travis.yml.egl').generate('../build/ui/.travis.yml'); %]
+[%// TemplateFactory.load('./ui/.travis.yml.egl').generate('../build/ui/.travis.yml'); %]
 [% TemplateFactory.load('./ui/package.json.egl').generate('../build/ui/package.json'); %]
 [% TemplateFactory.load('./ui/bower.json.egl').generate('../build/ui/bower.json'); %]
 [% TemplateFactory.load('./ui/.yo-rc.json.egl').generate('../build/ui/.yo-rc.json'); %]
@@ -122,3 +122,4 @@ Angular-files
 %]
 
 [% TemplateFactory.load('./ui/Gemfile.egl').generate('../build/ui/Gemfile'); %]
+[% TemplateFactory.load('./ui/setup.sh.egl').generate('../build/ui/setup.sh'); %]
